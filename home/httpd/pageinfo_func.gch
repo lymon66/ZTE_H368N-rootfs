@@ -1,0 +1,34 @@
+<%
+function getIdleTime()
+{
+var  FP_HANDLE;
+FP_HANDLE = create_paralist();
+get_inst(FP_HANDLE, "OBJ_USERIF_ID", "");
+var value = get_para(FP_HANDLE, "Timeout");
+destroy_paralist(FP_HANDLE);
+return value;
+}
+function getDevModeName()
+{
+var FP_HANDLE;
+var ModelName;
+FP_HANDLE = create_paralist();
+get_inst(FP_HANDLE, "OBJ_DEVINFO_ID", "");
+ModelName = get_para(FP_HANDLE,"ModelName");
+destroy_paralist(FP_HANDLE);
+return ModelName;
+}
+function setDevLang()
+{
+var language  = "";
+var FP_HANDLE = "";
+FP_HANDLE = create_paralist();
+get_inst(FP_HANDLE, "OBJ_USERIF_ID", "");
+language = get_para(FP_HANDLE,"Language");
+destroy_paralist(FP_HANDLE);
+if (language == "English")
+set_language("langen.conf");
+else
+set_language("langcn.conf");
+}
+%>

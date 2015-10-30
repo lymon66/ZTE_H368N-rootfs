@@ -1,0 +1,1309 @@
+<Object name="InternetGatewayDevice" shortname="IGD" objectType="Single" wr_attr="1">
+   <ParameterList>
+    <Parameter name="DeviceSummary" wr_attr="1" valueType="string" len="1024" />
+  </ParameterList>
+   <ObjectList>
+    <Object name="DeviceInfo" shortname="DEV" objectType="Single" wr_attr="1">
+      <ParameterList>
+        <Parameter name="Manufacturer" wr_attr="1" valueType="string" len="64" />
+        <Parameter name="ManufacturerOUI" wr_attr="1" valueType="string" len="6" />
+        <Parameter name="ModelName" wr_attr="1" valueType="string" len="64" />
+        <Parameter name="Description" wr_attr="1" valueType="string" len="256" />
+        <Parameter name="ProductClass" wr_attr="1" valueType="string" len="64" />
+        <Parameter name="SerialNumber" wr_attr="1" valueType="string" len="64" />
+        <Parameter name="X_00D0D0_BootLoaderVersion" wr_attr="1" valueType="string" len="64" />
+        <Parameter name="HardwareVersion" wr_attr="1" valueType="string" len="64" />
+        <Parameter name="SoftwareVersion" wr_attr="1" valueType="string" len="64" />
+        <Parameter name="ModemFirmwareVersion" wr_attr="1" valueType="string" len="64" />
+        <Parameter name="AdditionalHardwareVersion" wr_attr="1" valueType="string" len="64" />
+        <!--add by zhangjinhua-->
+        <Parameter name="X_00D0D0_PassiveBankSoftwareVersion" wr_attr="1" valueType="string" len="64" />
+        <!--add by zhangjinhua-->
+        <Parameter name="SpecVersion" wr_attr="1" valueType="string" len="16" />
+        <Parameter name="ProvisioningCode" wr_attr="1" valueType="string" len="64"/>
+        <Parameter name="UpTime" wr_attr="1" valueType="unsigned int" />
+        <Parameter name="FirstUseDate" wr_attr="1" valueType="dateTime"/>
+        <Parameter name="DeviceLog" wr_attr="1" valueType="string" len="32768" />
+        <Parameter name="X_00D0D0_CurrentUpLink" wr_attr="1" valueType="string" len="32" />
+        <Parameter name="X_00D0D0_MACAddress" wr_attr="1" valueType="string" len="17" />
+        </ParameterList>      
+        <ObjectList>
+          <Object name="X_00D0D0_IPv6DualStack" shortname="IPV6DS" objectType="Single" wr_attr="3">
+            <ParameterList>
+              <Parameter name="Enable" wr_attr="3" valueType="boolean" />
+            </ParameterList>
+          </Object>
+        </ObjectList>
+    </Object>
+    <Object name="X_00D0D0_TR111" shortname="TR111" objectType="Single" wr_attr="1">
+      <ParameterList>
+        <Parameter name="Enable" wr_attr="3" valueType="boolean" />
+      </ParameterList>
+    </Object>
+    <Object name="ManagementServer" shortname="MGT" objectType="Single" wr_attr="1">
+      <ParameterList>
+        <Parameter name="URL" wr_attr="3" valueType="string" len="256" />
+        <Parameter name="Username" wr_attr="3" valueType="string" len="256" />
+        <Parameter name="Password" wr_attr="3" valueType="string" len="256" />
+        <Parameter name="PeriodicInformEnable" wr_attr="3" valueType="boolean" />
+        <Parameter name="PeriodicInformInterval" wr_attr="3" valueType="unsigned int" />
+        <Parameter name="PeriodicInformTime" wr_attr="3" valueType="dateTime" />
+        <Parameter name="ParameterKey" wr_attr="1" valueType="string" len="32" />
+        <Parameter name="ConnectionRequestURL" wr_attr="1" valueType="string" len="256" />
+        <Parameter name="ConnectionRequestUsername" wr_attr="3" valueType="string" len="256" />
+        <Parameter name="ConnectionRequestPassword" wr_attr="3" valueType="string" len="256" />
+        <Parameter name="UpgradesManaged" wr_attr="3" valueType="boolean" />
+        <Parameter name="ManageableDeviceNumberOfEntries" wr_attr="1" valueType="unsigned int" />   
+        <Parameter name="ManageableDeviceNotificationLimit" wr_attr="3" valueType="unsigned int" spaattr="3" />      
+      </ParameterList>
+      <ObjectList>
+        <Object name="ManageableDevice" shortname="MD" objectType="Multi" wr_attr="1">
+          <ParameterList>
+            <Parameter name="ManufacturerOUI" wr_attr="1" valueType="string" len="6" />
+            <Parameter name="ProductClass" wr_attr="1" valueType="string" len="64" />
+            <Parameter name="SerialNumber" wr_attr="1" valueType="string" len="64" />
+      </ParameterList>
+    </Object>
+      </ObjectList>   
+    </Object>
+    <Object name="Time" shortname="SNTP" objectType="Single" wr_attr="1">
+      <ParameterList>
+        <Parameter name="NTPServer1" wr_attr="3" valueType="string" len="64" />
+        <Parameter name="NTPServer2" wr_attr="3" valueType="string" len="64" />
+        <Parameter name="NTPServer3" wr_attr="3" valueType="string" len="64" />
+        <Parameter name="NTPServer4" wr_attr="3" valueType="string" len="64" />
+        <Parameter name="NTPServer5" wr_attr="3" valueType="string" len="64" />
+        <Parameter name="CurrentLocalTime" wr_attr="1" valueType="dateTime" />
+        <Parameter name="LocalTimeZone" wr_attr="3" valueType="string" len="6" />
+        <Parameter name="LocalTimeZoneName" wr_attr="1" valueType="string" len="64" />
+        <Parameter name="DaylightSavingsUsed" wr_attr="0" valueType="boolean" />
+        <Parameter name="DaylightSavingsStart" wr_attr="0" valueType="dateTime" />
+        <Parameter name="DaylightSavingsEnd" wr_attr="0" valueType="dateTime" />
+        <Parameter name="PollInterval" wr_attr="3" valueType="unsigned int" />
+      </ParameterList>
+    </Object>
+    <Object name="DDNS" shortname="DDNS" objectType="Single" wr_attr="1">
+      <ParameterList>
+        <Parameter name="Enable" wr_attr="3" valueType="boolean" />
+        <Parameter name="ServiceType" wr_attr="3" valueType="string" len="32" />
+        <Parameter name="Username" wr_attr="3" valueType="string" len="256" />
+        <Parameter name="HostName" wr_attr="3" valueType="string" len="256" />
+     </ParameterList>
+    </Object>
+    <Object name="Layer3Forwarding" shortname="LF" objectType="Single" wr_attr="1">
+      <ParameterList>
+        <Parameter name="DefaultConnectionService" wr_attr="3" valueType="string" len="256" />
+        <Parameter name="ForwardNumberOfEntries" wr_attr="1" valueType="unsigned int" />
+      </ParameterList>
+      <ObjectList>
+        <Object name="Forwarding" shortname="RT" objectType="Multi" wr_attr="3">
+          <ParameterList>
+            <Parameter name="Enable" wr_attr="3" valueType="boolean" />
+            <Parameter name="Status" wr_attr="1" valueType="string" len="16" />
+            <Parameter name="Type" wr_attr="3" valueType="string" len="16" />
+            <Parameter name="DestIPAddress" wr_attr="3" valueType="string" len="16" />
+            <Parameter name="DestSubnetMask" wr_attr="3" valueType="string" len="16" />          
+            <Parameter name="GatewayIPAddress" wr_attr="3" valueType="string" len="16" />
+            <Parameter name="Interface" wr_attr="3" valueType="string" len="256" />
+          </ParameterList>
+        </Object>
+      </ObjectList>
+    </Object>
+    <Object name="Layer2Bridging" shortname="L2B" objectType="Single" wr_attr="1">
+      <ParameterList>
+        <Parameter name="MaxBridgeEntries" wr_attr="1" valueType="unsigned int" />
+        <Parameter name="MaxFilterEntries" wr_attr="1" valueType="unsigned int" />
+        <Parameter name="MaxMarkingEntries" wr_attr="1" valueType="unsigned int" />
+        <Parameter name="BridgeNumberOfEntries" wr_attr="1" valueType="unsigned int" />
+        <Parameter name="FilterNumberOfEntries" wr_attr="1" valueType="unsigned int" />
+        <Parameter name="MarkingNumberOfEntries" wr_attr="1" valueType="unsigned int" />
+        <Parameter name="AvailableInterfaceNumberOfEntries" wr_attr="1" valueType="unsigned int" />
+      </ParameterList>
+      <ObjectList>
+        <Object name="Bridge" shortname="L2BBridge" objectType="Multi" wr_attr="3">
+          <ParameterList>
+            <Parameter name="BridgeKey" wr_attr="1" valueType="unsigned int" />
+            <Parameter name="BridgeEnable" wr_attr="3" valueType="boolean" />
+            <Parameter name="BridgeStatus" wr_attr="1" valueType="string" len="16" />
+            <Parameter name="BridgeName" wr_attr="3" valueType="string" len="64" />
+            <Parameter name="VLANID" wr_attr="3" valueType="unsigned int" />
+          </ParameterList>
+        </Object>
+        <Object name="Filter" shortname="L2BFilter" objectType="Multi" wr_attr="3">
+          <ParameterList>
+            <Parameter name="FilterKey" wr_attr="1" valueType="unsigned int" />
+            <Parameter name="FilterEnable" wr_attr="3" valueType="boolean" />
+            <Parameter name="FilterBridgeReference" wr_attr="3" valueType="int" />
+            <Parameter name="ExclusivityOrder" wr_attr="3" valueType="unsigned int" />
+            <Parameter name="FilterInterface" wr_attr="3" valueType="string" len="16" />
+            <Parameter name="VLANIDFilter" wr_attr="3" valueType="int" />
+            <Parameter name="AdmitOnlyVLANTagged" wr_attr="3" valueType="boolean" />
+            <Parameter name="EthertypeFilterList" wr_attr="3" valueType="string" len="256" />
+            <Parameter name="EthertypeFilterExclude" wr_attr="3" valueType="boolean" />
+            <Parameter name="SourceMACAddressFilterList" wr_attr="3" valueType="string" len="512" />
+            <Parameter name="SourceMACAddressFilterExclude" wr_attr="3" valueType="boolean" />
+            <Parameter name="DestMACAddressFilterList" wr_attr="3" valueType="string" len="512" />
+            <Parameter name="DestMACAddressFilterExclude" wr_attr="3" valueType="boolean" />
+          </ParameterList>
+        </Object>
+        <Object name="AvailableInterface" shortname="L2BAvailIF" objectType="Multi" wr_attr="1">
+          <ParameterList>
+            <Parameter name="AvailableInterfaceKey" wr_attr="1" valueType="unsigned int" />
+            <Parameter name="InterfaceType" wr_attr="1" valueType="string" len="16" />
+            <Parameter name="InterfaceReference" wr_attr="1" valueType="string" len="256" />
+          </ParameterList>
+        </Object>
+      </ObjectList>
+    </Object>
+    <Object name="QueueManagement" shortname="QOS" objectType="Single" wr_attr="1">
+      <ParameterList>
+        <Parameter name="Enable" wr_attr="3" valueType="boolean" />
+        <Parameter name="X_00D0D0_Mode" wr_attr="3" valueType="string" len="64" />
+        <Parameter name="MaxClassificationEntries" wr_attr="1" valueType="unsigned int" />
+        <Parameter name="X_00D0D0_QPEnable" wr_attr="3" valueType="boolean" />
+        <Parameter name="X_00D0D0_QPAlgorithmName" wr_attr="3" valueType="string" len="16" />
+        <Parameter name="MaxPolicerEntries" wr_attr="1" valueType="unsigned int" />
+        <Parameter name="X_00D0D0_QQEnable" wr_attr="3" valueType="boolean" />
+        <Parameter name="X_00D0D0_QQAlgorithmName" wr_attr="3" valueType="string" len="16" />
+        <Parameter name="X_00D0D0_QQBorrowEnable" wr_attr="3" valueType="boolean" />
+        <Parameter name="X_00D0D0_QQRate" wr_attr="3" valueType="unsigned int" />
+        <Parameter name="MaxQueueEntries" wr_attr="1" valueType="unsigned int" />
+        <Parameter name="X_00D0D0_DSCPRemarkEnable" wr_attr="3" valueType="boolean" />
+        <Parameter name="X_00D0D0_VlanprioRemarkEnable" wr_attr="3" valueType="boolean" />
+      </ParameterList>
+      <ObjectList>
+        <Object name="Classification" shortname="QC" objectType="Multi" wr_attr="3">
+          <ParameterList>
+            <Parameter name="ClassificationKey" wr_attr="1" valueType="unsigned int" />
+            <Parameter name="ClassificationEnable" wr_attr="3" valueType="boolean" />
+            <Parameter name="ClassificationStatus" wr_attr="1" valueType="string" len="16" />
+            <Parameter name="ClassificationOrder" wr_attr="3" valueType="unsigned int" />
+            <Parameter name="ClassInterface" wr_attr="3" valueType="string" len="256" />
+            <Parameter name="X_00D0D0_ClassInterfaceMax" wr_attr="0" valueType="string" len="256" />
+            <Parameter name="X_00D0D0_ClassInterfaceMin" wr_attr="0" valueType="string" len="256" />
+            <Parameter name="EthernetPriorityCheck" wr_attr="3" valueType="int" />
+            <Parameter name="X_00D0D0_EthernetPriorityCheckMax" wr_attr="0" valueType="int" />
+            <Parameter name="X_00D0D0_EthernetPriorityCheckMin" wr_attr="0" valueType="int" />
+            <Parameter name="VLANIDCheck" wr_attr="3" valueType="int" />
+            <Parameter name="X_00D0D0_VLANIDCheckMax" wr_attr="0" valueType="int" />
+            <Parameter name="X_00D0D0_VLANIDCheckMin" wr_attr="0" valueType="int" />
+            <Parameter name="Ethertype" wr_attr="3" valueType="int" />
+            <Parameter name="DestMACAddress" wr_attr="3" valueType="string" len="17" />
+            <Parameter name="DestMACMask" wr_attr="3" valueType="string" len="17" />
+            <Parameter name="X_00D0D0_DestMACAddressMax" wr_attr="0" valueType="string" len="17" />
+            <Parameter name="X_00D0D0_DestMACAddressMin" wr_attr="0" valueType="string" len="17" />
+            <Parameter name="SourceMACAddress" wr_attr="3" valueType="string" len="17" />
+            <Parameter name="SourceMACMask" wr_attr="3" valueType="string" len="17" />
+            <Parameter name="X_00D0D0_SourceMACAddressMax" wr_attr="0" valueType="string" len="17" />
+            <Parameter name="X_00D0D0_SourceMACAddressMin" wr_attr="0" valueType="string" len="17" />
+            <Parameter name="X_00D0D0_IPLength" wr_attr="0" valueType="unsigned int" />
+            <Parameter name="IPLengthMax" wr_attr="0" valueType="unsigned int" />
+            <Parameter name="IPLengthMin" wr_attr="0" valueType="unsigned int" />
+            <Parameter name="DSCPCheck" wr_attr="3" valueType="int" />
+            <Parameter name="X_00D0D0_DSCPCheckMax" wr_attr="0" valueType="int" />
+            <Parameter name="X_00D0D0_DSCPCheckMin" wr_attr="0" valueType="int" />
+            <Parameter name="X_00D0D0_TOSCheck" wr_attr="3" valueType="int" />
+            <Parameter name="X_00D0D0_TOSCheckMax" wr_attr="0" valueType="int" />
+            <Parameter name="X_00D0D0_TOSCheckMin" wr_attr="0" valueType="int" />
+            <Parameter name="DestIP" wr_attr="3" valueType="string" len="16" />
+            <Parameter name="DestMask" wr_attr="3" valueType="string" len="16" />
+            <Parameter name="X_00D0D0_DestIPMax" wr_attr="3" valueType="string" len="16" />
+            <Parameter name="X_00D0D0_DestIPMin" wr_attr="3" valueType="string" len="16" />
+            <Parameter name="SourceIP" wr_attr="3" valueType="string" len="16" />
+            <Parameter name="SourceMask" wr_attr="3" valueType="string" len="16" />
+            <Parameter name="X_00D0D0_SourceIPMax" wr_attr="3" valueType="string" len="16" />
+            <Parameter name="X_00D0D0_SourceIPMin" wr_attr="3" valueType="string" len="16" />
+            <Parameter name="Protocol" wr_attr="3" valueType="int" />
+            <Parameter name="SourcePort" wr_attr="3" valueType="int" />
+            <Parameter name="X_00D0D0_SourcePortMax" wr_attr="0" valueType="int" />
+            <Parameter name="X_00D0D0_SourcePortMin" wr_attr="0" valueType="int" />
+            <Parameter name="DestPort" wr_attr="3" valueType="int" />
+            <Parameter name="X_00D0D0_DestPortMax" wr_attr="0" valueType="int" />
+            <Parameter name="X_00D0D0_DestPortMin" wr_attr="0" valueType="int" />
+            <Parameter name="X_00D0D0_RTPEnable" wr_attr="0" valueType="boolean" />
+            <Parameter name="EthernetPriorityMark" wr_attr="3" valueType="int" />
+            <Parameter name="DSCPMark" wr_attr="3" valueType="int" />
+            <Parameter name="ClassPolicer" wr_attr="3" valueType="int" />
+            <Parameter name="ClassQueue" wr_attr="3" valueType="int" />
+          </ParameterList>
+        </Object>
+        <Object name="Policer" shortname="QP" objectType="Multi" wr_attr="3">
+          <ParameterList>
+            <Parameter name="PolicerKey" wr_attr="1" valueType="unsigned int" />
+            <Parameter name="X_00D0D0_PolicerNum" wr_attr="3" valueType="int" />
+            <Parameter name="PolicerEnable" wr_attr="3" valueType="boolean" />
+            <Parameter name="PolicerStatus" wr_attr="1" valueType="string" len="16" />
+            <Parameter name="X_00D0D0_PolicerDev" wr_attr="3" valueType="string" len="256" />
+            <Parameter name="CommittedRate" wr_attr="3" valueType="unsigned int" />
+          </ParameterList>
+        </Object>
+      </ObjectList>
+    </Object>
+    <Object name="IPPingDiagnostics" shortname="IPD" objectType="Single" wr_attr="1">
+      <ParameterList>
+        <Parameter name="DiagnosticsState" wr_attr="3" valueType="string" len="32" />
+        <Parameter name="Interface" wr_attr="3" valueType="string" len="256"/>
+        <Parameter name="Host" wr_attr="3" valueType="string" len="256" />
+        <Parameter name="NumberOfRepetitions" wr_attr="3" valueType="unsigned int" />
+        <Parameter name="Timeout" wr_attr="3" valueType="unsigned int" />
+        <Parameter name="DataBlockSize" wr_attr="3" valueType="unsigned int" />
+        <Parameter name="DSCP" wr_attr="3" valueType="unsigned int"/>
+        <Parameter name="SuccessCount" wr_attr="1" valueType="unsigned int" />
+        <Parameter name="FailureCount" wr_attr="1" valueType="unsigned int" />
+        <Parameter name="AverageResponseTime" wr_attr="1" valueType="unsigned int" />
+        <Parameter name="MinimumResponseTime" wr_attr="1" valueType="unsigned int" />
+        <Parameter name="MaximumResponseTime" wr_attr="1" valueType="unsigned int" />
+      </ParameterList>
+    </Object>
+    <Object name="DownloadDiagnostics" shortname="DOWNLOAD" objectType="Single" wr_attr="0">
+      <ParameterList>
+        <Parameter name="DiagnosticsState" wr_attr="3" valueType="string" len="256"/>
+        <Parameter name="Interface" wr_attr="3" valueType="string" len="256"/>
+        <Parameter name="DownloadURL" wr_attr="3" valueType="string" len="256"/>
+        <Parameter name="DSCP" wr_attr="3" valueType="unsigned int"/>
+        <Parameter name="EthernetPriority" wr_attr="3" valueType="unsigned int"/>
+        <Parameter name="ROMTime" wr_attr="1" valueType="string" len="64"/>
+        <Parameter name="BOMTime" wr_attr="1" valueType="string" len="64"/>
+        <Parameter name="EOMTime" wr_attr="1" valueType="string" len="64"/>
+        <Parameter name="TestBytesReceived" wr_attr="1" valueType="unsigned int" />
+        <Parameter name="TotalBytesReceived" wr_attr="1" valueType="unsigned int" />
+        <Parameter name="TCPOpenRequestTime" wr_attr="1" valueType="string" len="64"/>
+        <Parameter name="TCPOpenResponseTime" wr_attr="1" valueType="string" len="64"/>
+      </ParameterList>
+    </Object>
+    <Object name="UploadDiagnostics" shortname="UPLOAD" objectType="Single" wr_attr="0">
+      <ParameterList>
+        <Parameter name="DiagnosticsState" wr_attr="3" valueType="string" len="256"/>
+        <Parameter name="Interface" wr_attr="3" valueType="string" len="256"/>
+        <Parameter name="UploadURL" wr_attr="3" valueType="string" len="256"/>
+        <Parameter name="TestFileLength" wr_attr="3" valueType="unsigned int" />
+        <Parameter name="DSCP" wr_attr="3" valueType="unsigned int"/>
+        <Parameter name="EthernetPriority" wr_attr="3" valueType="unsigned int"/>
+        <Parameter name="ROMTime" wr_attr="1" valueType="string" len="64"/>
+        <Parameter name="BOMTime" wr_attr="1" valueType="string" len="64"/>
+        <Parameter name="EOMTime" wr_attr="1" valueType="string" len="64"/>
+        <Parameter name="TotalBytesSent" wr_attr="1" valueType="unsigned int" />
+        <Parameter name="TCPOpenRequestTime" wr_attr="1" valueType="string" len="64"/>
+        <Parameter name="TCPOpenResponseTime" wr_attr="1" valueType="string" len="64"/>
+      </ParameterList>
+    </Object>
+    <Object name="LANDevice" shortname="LD" objectType="Multi" wr_attr="1">
+      <ObjectList>
+        <Object name="LANHostConfigManagement" shortname="HostCfg" objectType="Single" wr_attr="1">
+          <ParameterList>
+            <Parameter name="MACAddress" wr_attr="1" valueType="string" len="32"/>
+            <Parameter name="DHCPServerConfigurable" wr_attr="3" valueType="boolean" />
+            <Parameter name="DHCPServerEnable" wr_attr="3" valueType="boolean" />
+            <Parameter name="MinAddress" wr_attr="3" valueType="string" len="16" />
+            <Parameter name="MaxAddress" wr_attr="3" valueType="string" len="16" />
+            <Parameter name="SubnetMask" wr_attr="3" valueType="string" len="16" />
+            <Parameter name="DNSServers" wr_attr="3" valueType="string" len="64" />
+            <Parameter name="DomainName" wr_attr="3" valueType="string" len="64" />
+            <Parameter name="IPRouters" wr_attr="3" valueType="string" len="16" />
+            <Parameter name="DHCPLeaseTime" wr_attr="3" valueType="int" />
+            <Parameter name="AllowedMACAddresses" wr_attr="3" valueType="string" len="512" />
+          </ParameterList>
+          <ObjectList>
+            <Object name="DHCPConditionalServingPool" shortname="Pool" objectType="Multi" wr_attr="3">
+              <ParameterList>
+                <Parameter name="Enable" wr_attr="0" valueType="boolean" />
+                <Parameter name="PoolOrder" wr_attr="0" valueType="unsigned int" />
+                <Parameter name="SourceInterface" wr_attr="0" valueType="string" len="1024" />
+                <Parameter name="VendorClassID" wr_attr="0" valueType="string" len="256" />
+                <Parameter name="ClientID" wr_attr="0" valueType="string" len="512" />
+                <Parameter name="UserClassID" wr_attr="3" valueType="string" len="256" />
+                <Parameter name="Chaddr" wr_attr="0" valueType="string" len="16" />
+                <Parameter name="MinAddress" wr_attr="3" valueType="string" len="16" />
+                <Parameter name="MaxAddress" wr_attr="3" valueType="string" len="16" />
+                <Parameter name="ReservedAddresses" wr_attr="0" valueType="string" len="512" />
+                <Parameter name="SubnetMask" wr_attr="0" valueType="string" len="16" />
+                <Parameter name="DNSServers" wr_attr="0" valueType="string" len="64" />
+                <Parameter name="DomainName" wr_attr="0" valueType="string" len="64" />
+                <Parameter name="IPRouters" wr_attr="0" valueType="string" len="64" />
+                <Parameter name="DHCPLeaseTime" wr_attr="0" valueType="int" />
+                <Parameter name="UseAllocatedWAN" wr_attr="0" valueType="string" len="16" />
+                <Parameter name="AssociatedConnection" wr_attr="0" valueType="string" len="256" />
+                <Parameter name="X_00D0D0_ScriptName" wr_attr="0" valueType="string" len="16" />
+              </ParameterList>
+            </Object>            
+            <Object name="IPInterface" shortname="LAND" objectType="Multi" wr_attr="1">
+              <ParameterList>
+                <Parameter name="Enable" wr_attr="3" valueType="boolean" />
+                <Parameter name="IPInterfaceIPAddress" wr_attr="3" valueType="string" len="16" />
+                <Parameter name="IPInterfaceSubnetMask" wr_attr="3" valueType="string" len="16" />
+                <Parameter name="IPInterfaceAddressingType" wr_attr="3" valueType="string" len="16" />
+              </ParameterList>
+            </Object>
+            <Object name="DHCPStaticAddress" shortname="Bind" objectType="Multi" wr_attr="3">
+              <ParameterList>
+                <Parameter name="Enable" wr_attr="3" valueType="boolean" />
+                <Parameter name="Chaddr" wr_attr="3" valueType="string" len="17"/>
+                <Parameter name="Yiaddr" wr_attr="3" valueType="string" len="16" />                
+              </ParameterList>
+            </Object>
+          </ObjectList>
+         </Object>
+        <Object name="LANEthernetInterfaceConfig" shortname="ETH" objectType="Multi" wr_attr="1">
+          <ParameterList>
+            <Parameter name="Enable" wr_attr="3" valueType="boolean" />
+            <Parameter name="Status" wr_attr="1" valueType="string" len="16" />
+            <Parameter name="Name" wr_attr="1" valueType="string" len="32" />
+            <Parameter name="MACAddress" wr_attr="1" valueType="string" len="17" />
+            <Parameter name="MACAddressControlEnabled" wr_attr="1" valueType="boolean" />
+            <Parameter name="MaxBitRate" wr_attr="3" valueType="string" len="16" />
+            <Parameter name="DuplexMode" wr_attr="3" valueType="string" len="16" />
+          </ParameterList>
+          <ObjectList>
+            <Object name="Stats" shortname="STATS" objectType="Single" wr_attr="1">
+              <ParameterList>
+                <Parameter name="BytesSent" wr_attr="1" valueType="unsigned int" />
+                <Parameter name="BytesReceived" wr_attr="1" valueType="unsigned int" />
+                <Parameter name="PacketsSent" wr_attr="1" valueType="unsigned int" />
+                <Parameter name="PacketsReceived" wr_attr="1" valueType="unsigned int" />
+                <Parameter name="ErrorsReceived" wr_attr="1" valueType="unsigned int" />
+                <Parameter name="ErrorsSent" wr_attr="1" valueType="unsigned int" />
+                <Parameter name="UnicastPacketsSent" wr_attr="1" valueType="unsigned int" />
+                <Parameter name="UnicastPacketsReceived" wr_attr="1" valueType="unsigned int" />
+                <Parameter name="DiscardPacketsSent" wr_attr="1" valueType="unsigned int" />
+                <Parameter name="DiscardPacketsReceived" wr_attr="1" valueType="unsigned int" />
+                <Parameter name="MulticastPacketsSent" wr_attr="1" valueType="unsigned int" />
+                <Parameter name="MulticastPacketsReceived" wr_attr="1" valueType="unsigned int" />
+                <Parameter name="BroadcastPacketsSent" wr_attr="1" valueType="unsigned int" />
+                <Parameter name="BroadcastPacketsReceived" wr_attr="1" valueType="unsigned int" />
+                <Parameter name="UnknownProtoPacketsReceived" wr_attr="1" valueType="unsigned int" />
+              </ParameterList>
+            </Object>
+          </ObjectList>
+        </Object>
+        <Object name="WLANConfiguration" shortname="WLAN" objectType="Multi" wr_attr="1">
+          <ParameterList>
+            <Parameter name="Enable" wr_attr="3" valueType="boolean" />
+            <Parameter name="Status" wr_attr="1" valueType="string" len="16" />
+            <Parameter name="BSSID" wr_attr="1" valueType="string" len="16" />
+            <Parameter name="X_00D0D0_11nMode" wr_attr="3" valueType="boolean" />
+            <Parameter name="X_00D0D0_GreenField" wr_attr="3" valueType="boolean" />
+            <Parameter name="X_00D0D0_SGI" wr_attr="3" valueType="boolean" />
+            <Parameter name="MaxBitRate" wr_attr="3" valueType="string" len="4" />
+            <Parameter name="X_00D0D0_BandWidth" wr_attr="3" valueType="string" len="6" />
+            <Parameter name="Channel" wr_attr="3" valueType="unsigned int" />
+            <Parameter name="X_00D0D0_ExternelChannel" wr_attr="3" valueType="string" len="6" />
+            <Parameter name="AutoChannelEnable" wr_attr="3" valueType="boolean" />
+            <Parameter name="ChannelInUsed" wr_attr="0" valueType="unsigned int" />
+            <Parameter name="ChannelsInUse" wr_attr="1" valueType="string" len="1024" />
+            <Parameter name="SSID" wr_attr="3" valueType="string" len="32" />
+            <Parameter name="BeaconType" wr_attr="3" valueType="string" len="16" />
+            <Parameter name="BeaconAdvertisementEnabled" wr_attr="3" valueType="boolean" />
+            <Parameter name="MACAddressControlEnabled" wr_attr="3" valueType="boolean" />
+            <Parameter name="Standard" wr_attr="1" valueType="string" len="32" />
+            <Parameter name="WEPKeyIndex" wr_attr="3" valueType="unsigned int" />
+            <Parameter name="WEPEncryptionLevel" wr_attr="1" valueType="string" len="64" />
+            <Parameter name="BasicEncryptionModes" wr_attr="3" valueType="string" len="31" />
+            <Parameter name="BasicAuthenticationMode" wr_attr="3" valueType="string" len="32" />
+            <Parameter name="WPAEncryptionModes" wr_attr="3" valueType="string" len="31" />
+            <Parameter name="WPAAuthenticationMode" wr_attr="3" valueType="string" len="31" />
+            <Parameter name="IEEE11iEncryptionModes" wr_attr="3" valueType="string" len="31" />
+            <Parameter name="IEEE11iAuthenticationMode" wr_attr="3" valueType="string" len="31" />
+            <Parameter name="PossibleChannels" wr_attr="1" valueType="string" len="1024" />            
+            <Parameter name="BasicDataTransmitRates" wr_attr="3" valueType="string" len="256" />
+            <Parameter name="OperationalDataTransmitRates" wr_attr="3" valueType="string" len="256" />
+            <Parameter name="SSIDAdvertisementEnabled" wr_attr="3" valueType="boolean" />
+            <Parameter name="RadioEnabled" wr_attr="3" valueType="boolean" />
+            <Parameter name="TransmitPowerSupported" wr_attr="1" valueType="string" len="64" />
+            <Parameter name="TransmitPower" wr_attr="3" valueType="unsigned int" />
+            <Parameter name="RegulatoryDomain" wr_attr="1" valueType="string" len="31" isImit="1" defVal="nlI"/>
+            <Parameter name="WMMSupported" wr_attr="1" valueType="string" len="31" isImit="1" defVal="TRUE" />
+            <Parameter name="WMMEnable" wr_attr="3" valueType="boolean" />
+            <Parameter name="PeerBSSID" wr_attr="3" valueType="string" len="32" isImit="1" defVal="00:00:00:00:00:00" />
+            <Parameter name="X_00D0D0_MaxUserNum" wr_attr="3" valueType="unsigned int" />
+            <Parameter name="X_00D0D0_ScheduledRF" wr_attr="0" valueType="boolean" />
+            <Parameter name="X_00D0D0_RealRF" wr_attr="1" valueType="boolean" />
+            <Parameter name="AutoRateFallBackEnabled" wr_attr="3" valueType="boolean" />
+            <Parameter name="TotalPSKFailures" wr_attr="1" valueType="unsigned int" />
+            <Parameter name="TotalIntegrityFailures" wr_attr="1" valueType="unsigned int" />
+            <Parameter name="TotalBytesSent" wr_attr="1" valueType="unsigned int" />
+            <Parameter name="TotalBytesReceived" wr_attr="1" valueType="unsigned int" />
+            <Parameter name="TotalPacketsSent" wr_attr="1" valueType="unsigned int" />
+            <Parameter name="TotalPacketsReceived" wr_attr="1" valueType="unsigned int" />
+            <Parameter name="TotalAssociations" wr_attr="1" valueType="unsigned int" />            
+          </ParameterList>
+          <ObjectList>
+          <Object name="Stats" shortname="STATS" objectType="Single" wr_attr="1">
+              <ParameterList>
+                <Parameter name="BytesSent" wr_attr="1" valueType="unsigned int" />
+                <Parameter name="BytesReceived" wr_attr="1" valueType="unsigned int" />
+                <Parameter name="PacketsSent" wr_attr="1" valueType="unsigned int" />
+                <Parameter name="PacketsReceived" wr_attr="1" valueType="unsigned int" />
+                <Parameter name="ErrorsSent" wr_attr="1" valueType="unsigned int" />
+                <Parameter name="ErrorsReceived" wr_attr="1" valueType="unsigned int" />
+                <Parameter name="UnicastPacketsSent" wr_attr="1" valueType="unsigned int" />
+                <Parameter name="UnicastPacketsReceived" wr_attr="1" valueType="unsigned int" />
+                <Parameter name="DiscardPacketsSent" wr_attr="1" valueType="unsigned int" />
+                <Parameter name="DiscardPacketsReceived" wr_attr="1" valueType="unsigned int" />
+                <Parameter name="MulticastPacketsSent" wr_attr="1" valueType="unsigned int" />
+                <Parameter name="MulticastPacketsReceived" wr_attr="1" valueType="unsigned int" />
+                <Parameter name="BroardCastPacketsSent" wr_attr="1" valueType="unsigned int" />
+                <Parameter name="BroardCastPacketsReceived" wr_attr="1" valueType="unsigned int" />
+                <Parameter name="UnknownProtoPacketsReceived" wr_attr="1" valueType="unsigned int" />
+           </ParameterList>
+            </Object>
+            <Object name="AssociatedDevice" shortname="AD" objectType="Multi" wr_attr="1">
+              <ParameterList>
+                <Parameter name="AssociatedDeviceMACAddress" wr_attr="1" valueType="string" len="16" />
+                <Parameter name="AssociatedDeviceIPAddress" wr_attr="1" valueType="string" len="64" />
+                <Parameter name="AssociatedDeviceAuthenticationState" wr_attr="1" valueType="boolean" />
+                <Parameter name="LastRequestedUnicastCipher" wr_attr="0" valueType="string" len="256" />
+                <Parameter name="LastRequestedMulticastCipher" wr_attr="0" valueType="string" len="256" />
+                <Parameter name="LastPMKId" wr_attr="0" valueType="string" len="256" />
+              </ParameterList>
+            </Object>
+            <Object name="PreSharedKey" shortname="PSK" objectType="Multi" wr_attr="1">
+              <ParameterList>
+                <Parameter name="PreSharedKey" wr_attr="1" valueType="string" len="64" />
+                <Parameter name="KeyPassphrase" wr_attr="3" valueType="string" len="63" />
+                <Parameter name="AssociatedDeviceMACAddress" wr_attr="3" valueType="string" len="16" />
+              </ParameterList>
+            </Object>
+            <Object name="WEPKey" shortname="WEP" objectType="Multi" wr_attr="1">
+              <ParameterList>
+                <Parameter name="WEPKey" wr_attr="3" valueType="string" len="128" />
+              </ParameterList>
+            </Object>
+            <Object name="WPS" shortname="WPS" objectType="Single" wr_attr="1">
+              <ParameterList>
+              	<Parameter name="Enable" wr_attr="3" valueType="boolean" />              	
+              	<Parameter name="ConfigMethodsSupported" wr_attr="1" valueType="string" len="31" />
+                <Parameter name="ConfigMethodsEnabled" wr_attr="3" valueType="string" len="31" />
+                <Parameter name="Version" wr_attr="1" valueType="string" len="31" />
+              </ParameterList>
+            </Object>
+          </ObjectList>
+        </Object>
+        <Object name="Hosts" shortname="Hosts" objectType="Single" wr_attr="1">
+          <ParameterList>
+            <Parameter name="HostNumberOfEntries" wr_attr="1" valueType="unsigned int" />
+          </ParameterList>
+          <ObjectList>
+            <Object name="Host" shortname="HI" objectType="Multi" wr_attr="1">
+              <ParameterList>
+                <Parameter name="IPAddress" wr_attr="1" valueType="string" len="16" />
+                <Parameter name="LeaseTimeRemaining" wr_attr="1" valueType="int" />
+                <Parameter name="MACAddress" wr_attr="1" valueType="string" len="17" />
+                <Parameter name="HostName" wr_attr="1" valueType="string" len="64" />
+              <!--add by xiekun-->
+                <Parameter name="AddressSource"   wr_attr="1" valueType="string" len="64" />
+                <Parameter name="Layer2Interface" wr_attr="1" valueType="string" len="256" />
+                <Parameter name="VendorClassID"   wr_attr="1" valueType="string" len="256" />
+                <Parameter name="ClientID"        wr_attr="1" valueType="string" len="256" />
+                <Parameter name="UserClassID"     wr_attr="1" valueType="string" len="256" />
+                <Parameter name="InterfaceType"   wr_attr="1" valueType="string" len="64" />
+                <Parameter name="Active"          wr_attr="1" valueType="boolean" />
+                <!--add by xiekun-->
+              </ParameterList>
+            </Object>
+          </ObjectList>
+        </Object>
+      </ObjectList>
+    </Object>
+    <Object name="WANDevice" shortname="WD" objectType="Multi" wr_attr="1">
+      <ParameterList>
+        <Parameter name="WANConnectionNumberOfEntries" wr_attr="1" valueType="unsigned int" />
+        <Parameter name="WANType" wr_attr="1" valueType="string" len="32"/>
+      </ParameterList>
+      <ObjectList>
+        <Object name="WANCommonInterfaceConfig" shortname="WDCommCfg" objectType="Single" wr_attr="1">
+          <ParameterList>
+            <Parameter name="EnabledForInternet" wr_attr="3" valueType="boolean" />
+            <Parameter name="WANAccessType" wr_attr="1" valueType="string" len="16" />
+            <Parameter name="Layer1UpstreamMaxBitRate" wr_attr="1" valueType="unsigned int" />
+            <Parameter name="Layer1DownstreamMaxBitRate" wr_attr="1" valueType="unsigned int" />
+            <Parameter name="PhysicalLinkStatus" wr_attr="1" valueType="string" len="16" />
+            <Parameter name="TotalBytesSent" wr_attr="1" valueType="unsigned int" />
+            <Parameter name="TotalBytesReceived" wr_attr="1" valueType="unsigned int" />
+            <Parameter name="TotalPacketsSent" wr_attr="1" valueType="unsigned int" />
+            <Parameter name="TotalPacketsReceived" wr_attr="1" valueType="unsigned int" />
+            <Parameter name="MaximumActiveConnections" wr_attr="1" valueType="unsigned int" />
+            <Parameter name="NumberOfActiveConnections" wr_attr="1" valueType="unsigned int" />
+            <Parameter name="ConfigurationMode" wr_attr="1" valueType="string" len="32" />
+            <Parameter name="CurrentUpLink" wr_attr="1" valueType="string"  len="32" />
+           </ParameterList>
+          <ObjectList>
+            <Object name="Connection" shortname="CONN" objectType="Multi" wr_attr="1">
+              <ParameterList>
+                <Parameter name="ActiveConnectionDeviceContainer" wr_attr="1" valueType="string" len="256" />
+                <Parameter name="ActiveConnectionServiceID" wr_attr="1" valueType="string" len="256" />
+              </ParameterList>
+            </Object>
+          </ObjectList>
+        </Object>
+        <Object name="WANConnectionDevice" shortname="WCD" objectType="Multi" wr_attr="3">
+          <ParameterList>
+            <Parameter name="WANIPConnectionNumberOfEntries" wr_attr="1" valueType="unsigned int" />
+            <Parameter name="WANPPPConnectionNumberOfEntries" wr_attr="1" valueType="unsigned int" />
+          </ParameterList>
+          <ObjectList>
+            <Object name="WANIPConnection" shortname="WCIP" objectType="Multi" wr_attr="3">
+              <ParameterList>
+                <Parameter name="Enable" wr_attr="3" valueType="boolean" />
+                <Parameter name="ConnectionStatus" wr_attr="1" valueType="string" len="16" />
+                <Parameter name="ConnectionType" wr_attr="3" valueType="string" len="16" />
+                <Parameter name="Name" wr_attr="3" valueType="string" len="256" />
+                <Parameter name="Uptime" wr_attr="1" valueType="unsigned int" />
+                <Parameter name="NATEnabled" wr_attr="3" valueType="boolean" />
+                <Parameter name="AddressingType" wr_attr="3" valueType="string" len="16" />
+                <Parameter name="ExternalIPAddress" wr_attr="3" valueType="string" len="16" />
+                <Parameter name="SubnetMask" wr_attr="3" valueType="string" len="16" />
+                <Parameter name="DefaultGateway" wr_attr="3" valueType="string" len="16" />
+                <Parameter name="DNSServers" wr_attr="3" valueType="string" len="48" />
+                <Parameter name="MaxMTUSize" wr_attr="3" valueType="unsigned int" />
+                <Parameter name="MACAddress" wr_attr="1" valueType="string" len="17" />                
+              </ParameterList>
+              <ObjectList>
+                <Object name="PortMapping" shortname="FWPM" objectType="Multi" wr_attr="3">
+                   <ParameterList>
+                    <Parameter name="PortMappingEnabled" wr_attr="3" valueType="boolean" />
+                    <Parameter name="PortMappingLeaseDuration" wr_attr="3" valueType="unsigned int" />
+                    <Parameter name="RemoteHost" wr_attr="3" valueType="string" len="16" />
+                    <Parameter name="ExternalPort" wr_attr="3" valueType="unsigned int" />
+                    <Parameter name="ExternalPortEndRange" wr_attr="3" valueType="unsigned int" />
+                    <Parameter name="InternalPort" wr_attr="3" valueType="unsigned int" />
+                    <Parameter name="PortMappingProtocol" wr_attr="3" valueType="string" len="16" />
+                    <Parameter name="InternalClient" wr_attr="3" valueType="string" len="16" />
+                    <Parameter name="PortMappingDescription" wr_attr="3" valueType="string" len="256" />
+                  </ParameterList>
+                </Object>
+              </ObjectList>
+            </Object>
+            <Object name="WANPPPConnection" shortname="WCPPP" objectType="Multi" wr_attr="3">
+              <ParameterList>
+                <Parameter name="Enable" wr_attr="3" valueType="boolean" />
+                <Parameter name="ConnectionStatus" wr_attr="1" valueType="string" len="16" />
+                <Parameter name="PossibleConnectionTypes" wr_attr="1" valueType="string" len="128" />
+                <Parameter name="ConnectionType" wr_attr="3" valueType="string" len="16" />
+                <Parameter name="Name" wr_attr="3" valueType="string" len="256" />
+                <Parameter name="Uptime" wr_attr="1" valueType="unsigned int" />
+                <Parameter name="LastConnectionError" wr_attr="1" valueType="string" len="16" />
+                <Parameter name="AutoDisconnectTime" wr_attr="0" valueType="unsigned int" isImit="1" defVal="0" />
+                <Parameter name="IdleDisconnectTime" wr_attr="3" valueType="unsigned int" />
+                <Parameter name="WarnDisconnectDelay" wr_attr="0" valueType="unsigned int" isImit="1" defVal="0" />
+                <Parameter name="RSIPAvailable" wr_attr="0" valueType="boolean" isImit="1" defVal="0" />
+                <Parameter name="NATEnabled" wr_attr="3" valueType="boolean" />
+                <Parameter name="Username" wr_attr="3" valueType="string" len="64" />
+                <Parameter name="Password" wr_attr="2" valueType="string" len="64" />
+                <Parameter name="PPPEncryptionProtocol" wr_attr="1" valueType="string" len="16" />
+                <Parameter name="PPPCompressionProtocol" wr_attr="1" valueType="string" len="16" />
+                <Parameter name="PPPAuthenticationProtocol" wr_attr="1" valueType="string" len="16" />
+                <Parameter name="ExternalIPAddress" wr_attr="1" valueType="string" len="16" />
+                <Parameter name="RemoteIPAddress" wr_attr="1" valueType="string" len="16" />
+                <Parameter name="MaxMRUSize" wr_attr="3" valueType="unsigned int" />
+                <Parameter name="X_00D0D0_MTU" wr_attr="3" valueType="unsigned int" />
+                <Parameter name="CurrentMRUSize" wr_attr="1" valueType="unsigned int" />
+                <Parameter name="DNSEnabled" wr_attr="1" valueType="boolean" isImit="1" defVal="1" />
+                <Parameter name="DNSOverrideAllowed" wr_attr="1" valueType="boolean" isImit="1" defVal="0" />
+                <Parameter name="DNSServers" wr_attr="1" valueType="string" len="64" />
+                <Parameter name="MACAddress" wr_attr="1" valueType="string" len="17" />
+                <Parameter name="MACAddressOverride" wr_attr="1" valueType="boolean" isImit="1" defVal="0" />
+                <Parameter name="TransportType" wr_attr="1" valueType="string" len="16" />
+                <Parameter name="PPPoEACName" wr_attr="3" valueType="string" len="256" />
+                <Parameter name="PPPoEServiceName" wr_attr="3" valueType="string" len="256" />
+                <Parameter name="ConnectionTrigger" wr_attr="3" valueType="string" len="16" />
+                <Parameter name="RouteProtocolRx" wr_attr="0" valueType="string" len="16" isImit="1" defVal="Off" />
+                <Parameter name="PPPLCPEcho" wr_attr="1" valueType="unsigned int" />
+                <Parameter name="PPPLCPEchoRetry" wr_attr="1" valueType="unsigned int" />               
+              </ParameterList>
+              <ObjectList>
+                <Object name="PortMapping" shortname="FWPM" objectType="Multi" wr_attr="3">
+                  <ParameterList>
+                    <Parameter name="PortMappingEnabled" wr_attr="3" valueType="boolean" />
+                    <Parameter name="PortMappingLeaseDuration" wr_attr="3" valueType="unsigned int" />
+                    <Parameter name="RemoteHost" wr_attr="3" valueType="string" len="16" />
+                    <Parameter name="ExternalPort" wr_attr="3" valueType="unsigned int" />
+                    <Parameter name="ExternalPortEndRange" wr_attr="3" valueType="unsigned int" />
+                    <Parameter name="InternalPort" wr_attr="3" valueType="unsigned int" />
+                    <Parameter name="PortMappingProtocol" wr_attr="3" valueType="string" len="16" />
+                    <Parameter name="InternalClient" wr_attr="3" valueType="string" len="16" />
+                    <Parameter name="PortMappingDescription" wr_attr="3" valueType="string" len="256" />
+                  </ParameterList>
+                </Object>
+              </ObjectList>
+            </Object>
+            <Object name="WANDSLLinkConfig" shortname="DSLCfg" objectType="Single" wr_attr="1">
+              <ParameterList>
+                <Parameter name="Enable" wr_attr="3" valueType="boolean" />
+                <Parameter name="LinkStatus" wr_attr="1" valueType="string" len="16" />
+                <Parameter name="LinkType" wr_attr="3" valueType="string" len="16" />
+                <Parameter name="AutoConfig" wr_attr="1" valueType="boolean" />
+                <Parameter name="ModulationType" wr_attr="1" valueType="string" len="16" />
+                <Parameter name="DestinationAddress" wr_attr="3" valueType="string" len="256" />
+                <Parameter name="ATMEncapsulation" wr_attr="3" valueType="string" len="16" />
+                <Parameter name="FCSPreserved" wr_attr="3" valueType="boolean" />
+                <Parameter name="VCSearchList" wr_attr="3" valueType="string" len="128"/>
+                <Parameter name="ATMAAL" wr_attr="1" valueType="string" len="16"/>                
+                <Parameter name="ATMTransmittedBlocks" wr_attr="1" valueType="unsigned int" />
+                <Parameter name="ATMReceivedBlocks" wr_attr="1" valueType="unsigned int" />
+                <Parameter name="ATMQoS" wr_attr="3" valueType="string" len="16" />
+                <Parameter name="ATMPeakCellRate" wr_attr="3" valueType="unsigned int" />
+                <Parameter name="ATMMaximumBurstSize" wr_attr="3" valueType="unsigned int" />
+                <Parameter name="ATMSustainableCellRate" wr_attr="3" valueType="unsigned int" />
+                <Parameter name="AAL5CRCErrors" wr_attr="1" valueType="unsigned int" />
+                <Parameter name="ATMCRCErrors" wr_attr="1" valueType="unsigned int" />
+                <Parameter name="ATMHECErrors" wr_attr="1" valueType="unsigned int" />
+              </ParameterList>
+            </Object>
+            <Object name="WANPTMLinkConfig" shortname="PTMCfg" objectType="Single" wr_attr="1">
+             <ParameterList>
+               <Parameter name="Enable" wr_attr="3" valueType="boolean" />
+               <Parameter name="LinkStatus" wr_attr="1" valueType="string" len="32" />
+               <Parameter name="MACAddress" wr_attr="1" valueType="string" len="32" />
+             </ParameterList>
+             </Object>
+          <Object name="X_00D0D0_WANATMF4LoopbackDiagnostics" shortname="OAM" objectType="Single" wr_attr="1">
+              <ParameterList>
+                <Parameter name="DiagnosticsState" wr_attr="3" valueType="string" len="16" />
+                <Parameter name="NumberOfRepetitions" wr_attr="3" valueType="unsigned int" />
+                <Parameter name="Timeout" wr_attr="3" valueType="unsigned int" />
+                <Parameter name="SuccessCount" wr_attr="1" valueType="unsigned int" />
+                <Parameter name="FailureCount" wr_attr="1" valueType="unsigned int" />
+                <Parameter name="AverageResponseTime" wr_attr="1" valueType="unsigned int" />
+                <Parameter name="MinimumResponseTime" wr_attr="1" valueType="unsigned int" />
+                <Parameter name="MaximumResponseTime" wr_attr="1" valueType="unsigned int" />
+              </ParameterList>
+            </Object>
+          </ObjectList>
+        </Object>        
+        <Object name="WANEthernetInterfaceConfig" shortname="ETH" objectType="Single" wr_attr="1">
+          <ParameterList>
+            <Parameter name="Enable" wr_attr="3" valueType="boolean" />
+            <Parameter name="Status" wr_attr="1" valueType="string" len="16" />
+            <Parameter name="MACAddress" wr_attr="1" valueType="string" len="17" />
+            <Parameter name="MaxBitRate" wr_attr="3" valueType="string" len="16" />
+            <Parameter name="DuplexMode" wr_attr="3" valueType="string" len="16" />
+          </ParameterList>
+          <ObjectList>
+            <Object name="Stats" shortname="STATS" objectType="Single" wr_attr="1">
+              <ParameterList>
+                <Parameter name="BytesSent" wr_attr="1" valueType="unsigned int" />
+                <Parameter name="BytesReceived" wr_attr="1" valueType="unsigned int" />
+                <Parameter name="PacketsSent" wr_attr="1" valueType="unsigned int" />
+                <Parameter name="PacketsReceived" wr_attr="1" valueType="unsigned int" />
+              </ParameterList>
+            </Object>
+          </ObjectList>
+        </Object>
+        <Object name="WANDSLInterfaceConfig" shortname="WDCfg" objectType="Single" wr_attr="1">
+          <ParameterList>
+            <Parameter name="Enable" wr_attr="1" valueType="boolean" />
+            <Parameter name="Status" wr_attr="1" valueType="string" len="16" />
+            <Parameter name="ModulationType" wr_attr="1" valueType="string" len="16" />
+            <Parameter name="LineEncoding" wr_attr="1" valueType="string" len="16" />
+            <Parameter name="DataPath" wr_attr="1" valueType="string" len="16" /> 
+            <Parameter name="InterleaveDepth" wr_attr="1" valueType="unsigned int" />
+            <Parameter name="LineNumber" wr_attr="1" valueType="unsigned int"/>
+            <Parameter name="UpstreamCurrRate" wr_attr="1" valueType="unsigned int" />
+            <Parameter name="DownstreamCurrRate" wr_attr="1" valueType="unsigned int" />
+            <Parameter name="UpstreamMaxRate" wr_attr="1" valueType="unsigned int" />
+            <Parameter name="DownstreamMaxRate" wr_attr="1" valueType="unsigned int" />
+            <Parameter name="UpstreamNoiseMargin" wr_attr="1" valueType="int" />
+            <Parameter name="DownstreamNoiseMargin" wr_attr="1" valueType="int" />
+            <Parameter name="UpstreamAttenuation" wr_attr="1" valueType="int" />
+            <Parameter name="DownstreamAttenuation" wr_attr="1" valueType="int" />
+            <Parameter name="UpstreamPower" wr_attr="1" valueType="int" />
+            <Parameter name="DownstreamPower" wr_attr="1" valueType="int" />
+            <Parameter name="ATUCVendor" wr_attr="1" valueType="string" len="8" />
+            <Parameter name="LinkEncapsulationUsed" wr_attr="1" valueType="string" len="32" />
+            <Parameter name="CurrentProfile" wr_attr="1" valueType="string" len="8" />
+            <Parameter name="TotalStart" wr_attr="1" valueType="unsigned int" />
+            <Parameter name="ShowtimeStart" wr_attr="1" valueType="unsigned int" />
+            <Parameter name="CurrentDayStart" wr_attr="1" valueType="unsigned int" />
+            <Parameter name="QuarterHourStart" wr_attr="1" valueType="unsigned int" />
+            <Parameter name="X_00D0D0_UpstreamInterleavingDelay" wr_attr="1" valueType="unsigned int" />
+            <Parameter name="X_00D0D0_DownstreamInterleavingDelay" wr_attr="1" valueType="unsigned int" />
+            <Parameter name="X_00D0D0_UpstreamInp" wr_attr="1" valueType="unsigned int" />
+            <Parameter name="X_00D0D0_DownstreamInp" wr_attr="1" valueType="unsigned int" />
+          </ParameterList>
+          <ObjectList>
+            <Object name="Stats" shortname="Stats" objectType="Single" wr_attr="1">
+              <ObjectList>
+                <Object name="Total" shortname="TOTAL" objectType="Single" wr_attr="1">
+                  <ParameterList>
+                    <Parameter name="ReceiveBlocks" wr_attr="1" valueType="unsigned int" />
+                    <Parameter name="TransmitBlocks" wr_attr="1" valueType="unsigned int" />
+                    <Parameter name="LossOfFraming" wr_attr="1" valueType="unsigned int" />
+                    <Parameter name="ErroredSecs" wr_attr="1" valueType="unsigned int" />
+                    <Parameter name="SeverelyErroredSecs" wr_attr="1" valueType="unsigned int" />
+                  </ParameterList>
+                </Object>
+                <Object name="ShowTime" shortname="SHOWTIME" objectType="Single" wr_attr="1">
+                  <ParameterList>
+                    <Parameter name="FECErrors" wr_attr="1" valueType="unsigned int" />
+                    <Parameter name="ATUCFECErrors" wr_attr="1" valueType="unsigned int" />
+                    <Parameter name="CRCErrors" wr_attr="1" valueType="unsigned int" />
+                    <Parameter name="ATUCCRCErrors" wr_attr="0" valueType="unsigned int" />
+                  </ParameterList>
+                </Object>
+              </ObjectList>
+            </Object>
+          </ObjectList>
+        </Object>
+          <Object name="X_00D0D0_WANSecondDSLInterfaceConfig" shortname="SecWDCfg" objectType="Single" wr_attr="1">
+          <ParameterList>
+            <Parameter name="Enable" wr_attr="1" valueType="boolean" />
+            <Parameter name="Status" wr_attr="1" valueType="string" len="16" />
+            <Parameter name="ModulationType" wr_attr="1" valueType="string" len="16" />
+            <Parameter name="LineEncoding" wr_attr="1" valueType="string" len="16" />
+            <Parameter name="DataPath" wr_attr="1" valueType="string" len="16" />
+            <Parameter name="InterleaveDepth" wr_attr="1" valueType="unsigned int" />
+            <Parameter name="LineNumber" wr_attr="1" valueType="unsigned int"/>
+            <Parameter name="UpstreamCurrRate" wr_attr="1" valueType="unsigned int" />
+            <Parameter name="DownstreamCurrRate" wr_attr="1" valueType="unsigned int" />
+            <Parameter name="UpstreamMaxRate" wr_attr="1" valueType="unsigned int" />
+            <Parameter name="DownstreamMaxRate" wr_attr="1" valueType="unsigned int" />
+            <Parameter name="UpstreamNoiseMargin" wr_attr="1" valueType="int" />
+            <Parameter name="DownstreamNoiseMargin" wr_attr="1" valueType="int" />
+            <Parameter name="UpstreamAttenuation" wr_attr="1" valueType="int" />
+            <Parameter name="DownstreamAttenuation" wr_attr="1" valueType="int" />
+            <Parameter name="UpstreamPower" wr_attr="1" valueType="int" />
+            <Parameter name="DownstreamPower" wr_attr="1" valueType="int" />
+            <Parameter name="ATUCVendor" wr_attr="1" valueType="string" len="8" />
+            <Parameter name="LinkEncapsulationUsed" wr_attr="1" valueType="string" len="32" />
+            <Parameter name="CurrentProfile" wr_attr="1" valueType="string" len="8" />
+            <Parameter name="TotalStart" wr_attr="1" valueType="unsigned int" />
+            <Parameter name="ShowtimeStart" wr_attr="1" valueType="unsigned int" />
+            <Parameter name="CurrentDayStart" wr_attr="1" valueType="unsigned int" />
+            <Parameter name="QuarterHourStart" wr_attr="1" valueType="unsigned int" />
+            <Parameter name="X_00D0D0_UpstreamInterleavingDelay" wr_attr="1" valueType="unsigned int" />
+            <Parameter name="X_00D0D0_DownstreamInterleavingDelay" wr_attr="1" valueType="unsigned int" />
+            <Parameter name="X_00D0D0_UpstreamInp" wr_attr="1" valueType="unsigned int" />
+            <Parameter name="X_00D0D0_DownstreamInp" wr_attr="1" valueType="unsigned int" />
+          </ParameterList>
+      </Object>
+        <Object name="WANDSLDiagnostics" shortname="DSLDiag" objectType="Single" wr_attr="3">
+          <ParameterList>
+            <Parameter name="LoopDiagnosticsState" wr_attr="3" valueType="string" len="16" />
+            <Parameter name="SNRpsds" wr_attr="1" valueType="string" len="20480" />
+            <Parameter name="SNRpsus" wr_attr="1" valueType="string" len="20480" />
+            <Parameter name="HLOGpsds" wr_attr="1" valueType="string" len="20480" />
+            <Parameter name="HLOGpsus" wr_attr="1" valueType="string" len="20480" />
+            <Parameter name="QLNpsds" wr_attr="1" valueType="string" len="20480" />
+            <Parameter name="QLNpsus" wr_attr="1" valueType="string" len="20480" />
+            <Parameter name="BITSpsds" wr_attr="1" valueType="string" len="20480" />
+            <Parameter name="BITSpsus" wr_attr="1" valueType="string" len="20480" />
+          </ParameterList>
+        </Object>
+      </ObjectList>
+    </Object>
+    <Object name="Services" shortname="SV" objectType="Single" wr_attr="1">
+      <ObjectList>
+        <Object name="VoiceService" shortname="VS" objectType="Multi" wr_attr="3">
+          <ParameterList>
+            <Parameter name="VoiceProfileNumberOfEntries" wr_attr="1" valueType="unsigned int" />
+          </ParameterList>
+          <ObjectList>
+            <Object name="Capabilities" shortname="VC" objectType="Single" wr_attr="1">
+              <ParameterList>
+                <Parameter name="NumberingPlan" wr_attr="1" valueType="boolean" />
+                <Parameter name="MaxProfileCount" wr_attr="1" valueType="unsigned int" />
+                <Parameter name="MaxLineCount" wr_attr="1" valueType="unsigned int" />
+                <Parameter name="MaxSessionsPerLine" wr_attr="1" valueType="unsigned int" />
+                <Parameter name="MaxSessionCount" wr_attr="1" valueType="unsigned int" />
+                <Parameter name="SignalingProtocols" wr_attr="1" valueType="string" len="256" />
+                <Parameter name="Regions" wr_attr="1" valueType="string" len="256" />
+                <Parameter name="RTCP" wr_attr="1" valueType="boolean" />
+                <Parameter name="SRTP" wr_attr="1" valueType="boolean" />
+                <Parameter name="RTPRedundancy" wr_attr="1" valueType="boolean" />
+                <Parameter name="DSCPCoupled" wr_attr="1" valueType="boolean" />
+                <Parameter name="EthernetTaggingCoupled" wr_attr="1" valueType="boolean" />
+                <Parameter name="PSTNSoftSwitchOver" wr_attr="1" valueType="boolean" />
+                <Parameter name="FaxT38" wr_attr="1" valueType="boolean" />
+                <Parameter name="FaxPassThrough" wr_attr="1" valueType="boolean" />
+                <Parameter name="ModemPassThrough" wr_attr="1" valueType="boolean" />
+                <Parameter name="ToneGeneration" wr_attr="1" valueType="boolean" />
+                <Parameter name="RingGeneration" wr_attr="1" valueType="boolean" />
+                <Parameter name="ButtonMap" wr_attr="1" valueType="boolean" />
+                <Parameter name="VoicePortTests" wr_attr="1" valueType="boolean" />
+                <Parameter name="X_00D0D0_MaxSessionLimit" wr_attr="3" valueType="unsigned int" />
+              </ParameterList>
+          <ObjectList>
+                <Object name="SIP" shortname="CS" objectType="Single" wr_attr="3">
+                  <ParameterList>
+                    <Parameter name="Role" wr_attr="1" valueType="string" len="32" />
+                    <Parameter name="Extensions" wr_attr="1" valueType="string" len="64" />
+                    <Parameter name="Transports" wr_attr="1" valueType="string" len="16" />
+                    <Parameter name="URISchemes" wr_attr="1" valueType="string" len="64" />
+                    <Parameter name="EventSubscription" wr_attr="1" valueType="boolean" />
+                    <Parameter name="ResponseMap" wr_attr="1" valueType="boolean" />
+                  </ParameterList>
+                </Object>
+                <Object name="Codecs" shortname="CC" objectType="Multi" wr_attr="3">
+                  <ParameterList>
+                    <Parameter name="EntryID" wr_attr="1" valueType="unsigned int" />
+                    <Parameter name="Codec" wr_attr="1" valueType="string" len="64" />
+                    <Parameter name="BitRate" wr_attr="1" valueType="unsigned int" />
+                    <Parameter name="PacketizationPeriod" wr_attr="1" valueType="string" len="64" />
+                    <Parameter name="SilenceSuppression" wr_attr="1" valueType="boolean" />
+                  </ParameterList>
+                </Object>
+              </ObjectList>
+            </Object>
+            <Object name="PhyInterface" shortname="VHL" objectType="Multi" wr_attr="3">
+              <ParameterList>
+                <Parameter name="PhyPort" wr_attr="1" valueType="string" len="2" />
+                <Parameter name="InterfaceID" wr_attr="1" valueType="unsigned int" />
+              </ParameterList>
+            </Object>
+            <Object name="X_00D0D0_SIPLan" shortname="LAS" objectType="Single" wr_attr="1">
+              <ParameterList>
+                <Parameter name="Registrar" wr_attr="3" valueType="string" len="256" />
+                <Parameter name="RegistrarPort" wr_attr="3" valueType="unsigned int" />
+                <Parameter name="Proxy" wr_attr="3" valueType="string" len="256" />
+                <Parameter name="ProxyPort" wr_attr="3" valueType="unsigned int" />
+              </ParameterList>
+            </Object>
+            <Object name="X_00D0D0_CsLine" shortname="CI" objectType="Single" wr_attr="1">
+              <ObjectList>
+                    <Object name="Line" shortname="LN" objectType="Multi" wr_attr="3">
+                      <ParameterList>
+						<Parameter name="Status" wr_attr="3" valueType="unsigned int" />
+                      </ParameterList>
+                    </Object>
+              </ObjectList>
+            </Object>
+            <Object name="X_00D0D0_InternalAccount" shortname="IA" objectType="Multi" wr_attr="3">
+              <ParameterList>
+                <Parameter name="Number" wr_attr="1" valueType="string" len="8" />
+                <Parameter name="Password" wr_attr="3" valueType="string" len="16" />
+                <Parameter name="Enable" wr_attr="3" valueType="unsigned int" />
+                <Parameter name="Status" wr_attr="1" valueType="string" len="16" />
+                <Parameter name="ExtensionInList" wr_attr="3" valueType="string" len="64" />
+                <Parameter name="ExtensionOut" wr_attr="3" valueType="string" len="16" />
+              </ParameterList>
+            </Object>
+            <Object name="VoiceProfile" shortname="VP" objectType="Multi" wr_attr="3">
+              <ParameterList>
+                <Parameter name="Enable" wr_attr="3" valueType="string" len="16" />
+                <Parameter name="NumberOfLines" wr_attr="1" valueType="unsigned int" />
+                <Parameter name="Name" wr_attr="3" valueType="string" len="64" />
+                <Parameter name="MaxSessions" wr_attr="3" valueType="unsigned int" />
+                <Parameter name="SignalingProtocol" wr_attr="3" valueType="string" len="64" />
+                <Parameter name="DTMFMethod" wr_attr="3" valueType="string" len="64" />
+                <Parameter name="DTMFMethodG711" wr_attr="3" valueType="string" len="64" />
+                <Parameter name="Reset" wr_attr="3" valueType="boolean" />
+              </ParameterList>
+              <ObjectList>
+                <Object name="ServiceProviderInfo" shortname="PP" objectType="Single" wr_attr="3">
+                  <ParameterList>
+                    <Parameter name="Name" wr_attr="3" valueType="string" len="256" />
+                    <Parameter name="URL" wr_attr="3" valueType="string" len="256" />
+                    <Parameter name="ContactPhoneNumber" wr_attr="3" valueType="string" len="32" />
+                    <Parameter name="EmailAddress" wr_attr="3" valueType="string" len="256" />
+                  </ParameterList>
+                </Object>
+                <Object name="NumberingPlan" shortname="VN" objectType="Single" wr_attr="3">
+                  <ParameterList>
+                    <Parameter name="MinimumNumberOfDigits" wr_attr="3" valueType="unsigned int" />
+                    <Parameter name="MaximumNumberOfDigits" wr_attr="3" valueType="unsigned int" />
+                    <Parameter name="InterDigitTimerStd" wr_attr="3" valueType="unsigned int" />
+                    <Parameter name="InterDigitTimerOpen" wr_attr="3" valueType="unsigned int" />
+                    <Parameter name="InvalidNumberTone" wr_attr="3" valueType="unsigned int" />
+                    <Parameter name="PrefixInfoMaxEntries" wr_attr="1" valueType="unsigned int" />
+                    <Parameter name="PrefixInfoNumberOfEntries" wr_attr="1" valueType="unsigned int" />
+                  </ParameterList>
+                  <ObjectList>
+                    <Object name="PrefixInfo" shortname="NP" objectType="Multi" wr_attr="3">
+                      <ParameterList>
+                        <Parameter name="PrefixRange" wr_attr="3" valueType="string" len="42" />
+                        <Parameter name="PrefixMinNumberOfDigits" wr_attr="3" valueType="unsigned int" />
+                        <Parameter name="PrefixMaxNumberOfDigits" wr_attr="3" valueType="unsigned int" />
+                        <Parameter name="NumberOfDigitsToRemove" wr_attr="3" valueType="unsigned int" />
+                        <Parameter name="PosOfDigitsToRemove" wr_attr="3" valueType="unsigned int" />
+                        <Parameter name="DialTone" wr_attr="3" valueType="unsigned int" />
+                        <Parameter name="FacilityAction" wr_attr="3" valueType="string" len="64" />
+                        <Parameter name="FacilityActionArgument" wr_attr="3" valueType="string" len="256" />
+                      </ParameterList>
+                    </Object>
+                  </ObjectList>
+                </Object>
+                <Object name="RTP" shortname="VR" objectType="Single" wr_attr="1">
+                  <ParameterList>
+                    <Parameter name="X_CT-COM_802-1pMark" wr_attr="0" valueType="int" />
+                    <Parameter name="VLANIDMark" wr_attr="3" valueType="int" />
+                    <Parameter name="DSCPMark" wr_attr="3" valueType="unsigned int" />
+                    <Parameter name="LocalPortMin" wr_attr="3" valueType="unsigned int" />
+                    <Parameter name="LocalPortMax" wr_attr="3" valueType="unsigned int" />
+                    <Parameter name="TelephoneEventPayloadType" wr_attr="3" valueType="unsigned int" />
+                  </ParameterList>
+                </Object>
+                <Object name="FaxT38" shortname="VF" objectType="Single" wr_attr="1">
+                  <ParameterList>
+                    <Parameter name="Enable" wr_attr="3" valueType="boolean" />
+                  </ParameterList>
+                </Object>
+                <Object name="SIP" shortname="PS" objectType="Single" wr_attr="1">
+                  <ParameterList>
+                    <Parameter name="ProxyServer" wr_attr="3" valueType="string" len="256" />
+                    <Parameter name="X_00D0D0_SecProxyServer" wr_attr="3" valueType="string" len="256" />
+                    <Parameter name="ProxyServerPort" wr_attr="3" valueType="unsigned int" /> 
+                    <Parameter name="X_00D0D0_SecProxyPort" wr_attr="3" valueType="unsigned int" />
+                    <Parameter name="ProxyServerTransport" wr_attr="3" valueType="string" len="16" />
+                    <Parameter name="RegistrarServer" wr_attr="3" valueType="string" len="256" />
+                    <Parameter name="RegistrarServerPort" wr_attr="3" valueType="unsigned int" />
+                    <Parameter name="RegistrarServerTransport" wr_attr="3" valueType="string" len="16" />
+                    <Parameter name="UserAgentDomain" wr_attr="3" valueType="string" len="256" />
+                    <Parameter name="UserAgentPort" wr_attr="3" valueType="unsigned int" />
+                    <Parameter name="UserAgentTransport" wr_attr="3" valueType="string" len="16" />
+                    <Parameter name="OutboundProxy" wr_attr="3" valueType="string" len="256" />
+                    <Parameter name="X_00D0D0_SecOutboundProxyServer" wr_attr="3" valueType="string" len="256" />
+                    <Parameter name="OutboundProxyPort" wr_attr="3" valueType="unsigned int" />
+                    <Parameter name="Organization" wr_attr="3" valueType="string" len="64" />
+                    <Parameter name="RegistrationPeriod" wr_attr="3" valueType="unsigned int" />
+                    <Parameter name="RegisterExpires" wr_attr="3" valueType="unsigned int" />
+                    <Parameter name="RegisterRetryInterval" wr_attr="3" valueType="unsigned int" />
+                    <Parameter name="VLANIDMark" wr_attr="3" valueType="int" />
+                    <Parameter name="DSCPMark" wr_attr="3" valueType="unsigned int" />
+                    <Parameter name="InboundAuth" wr_attr="3" valueType="string" len="16" />
+                    <Parameter name="SIPEventSubscribeNumberOfElements" wr_attr="1" valueType="unsigned int" />
+                    <Parameter name="UseCodecPriorityInSDPResponse" wr_attr="3" valueType="boolean" />
+                    <Parameter name="X_00D0D0_AlertInfo" wr_attr="3" valueType="unsigned int" />
+                    <Parameter name="X_00D0D0_UnregisterOnReboot" wr_attr="3" valueType="unsigned int" />
+                  </ParameterList>
+                  <ObjectList>
+                    <Object name="EventSubscribe" shortname="SE" objectType="Multi" wr_attr="3">
+                      <ParameterList>
+                        <Parameter name="Event" wr_attr="3" valueType="string" len="32" />
+                        <Parameter name="Notifier" wr_attr="3" valueType="string" len="256" />
+                        <Parameter name="NotifierPort" wr_attr="3" valueType="unsigned int" />
+                        <Parameter name="NotifierTransport" wr_attr="3" valueType="string" len="16" />
+                        <Parameter name="ExpireTime" wr_attr="3" valueType="unsigned int" />
+                      </ParameterList>
+                    </Object>
+                  </ObjectList>
+                </Object>
+                <Object name="Line" shortname="VL" objectType="Multi" wr_attr="3">
+                  <ParameterList>
+                    <Parameter name="Enable" wr_attr="3" valueType="string" len="16" />
+                    <Parameter name="Status" wr_attr="1" valueType="string" len="16" />
+                    <Parameter name="CallState" wr_attr="1" valueType="string" len="16" />
+                    <Parameter name="PhyReferenceList" wr_attr="1" valueType="string" len="64" />
+                  </ParameterList>
+                  <ObjectList>
+                    <Object name="SIP" shortname="LS" objectType="Single" wr_attr="3">
+                      <ParameterList>
+                        <Parameter name="AuthUserName" wr_attr="3" valueType="string" len="128" />
+                        <Parameter name="AuthPassword" wr_attr="3" valueType="string" len="128" />
+                        <Parameter name="URI" wr_attr="3" valueType="string" len="128" />
+                      </ParameterList>
+                    </Object>
+                    <Object name="CallingFeatures" shortname="LF" objectType="Single" wr_attr="3">
+                      <ParameterList>
+                        <Parameter name="CallerIDEnable" wr_attr="3" valueType="boolean" />
+                        <Parameter name="CallerIDNameEnable" wr_attr="3" valueType="boolean" />
+                        <Parameter name="CallWaitingEnable" wr_attr="0" valueType="boolean" />
+                        <Parameter name="MWIEnable" wr_attr="0" valueType="boolean" />
+                        <Parameter name="MessageWaiting" wr_attr="0" valueType="boolean" />
+                      </ParameterList>
+                    </Object>
+                    <Object name="VoiceProcessing" shortname="LV" objectType="Single" wr_attr="3">
+                      <ParameterList>
+                        <Parameter name="ReceiveGain" wr_attr="3" valueType="int" />
+                        <Parameter name="TransmitGain" wr_attr="3" valueType="int" />
+                        <Parameter name="EchoCancellationTail" wr_attr="1" valueType="unsigned int" />
+                        <Parameter name="EchoCancellationEnable" wr_attr="3" valueType="boolean" />
+                        <Parameter name="X_00D0D0_NoLinearProcessorEnable" wr_attr="3" valueType="boolean" />
+                      </ParameterList>
+                    </Object>
+                    <Object name="Session" shortname="LE" objectType="Single" wr_attr="3">
+                      <ParameterList>
+                        <Parameter name="SessionStartTime" wr_attr="1" valueType="dateTime" />
+                        <Parameter name="SessionDuration" wr_attr="1" valueType="unsigned int" />
+                        <Parameter name="FarEndIPAddress" wr_attr="1" valueType="string" len="32" />
+                        <Parameter name="FarEndUDPPort" wr_attr="1" valueType="unsigned int" />
+                        <Parameter name="LocalUDPPort" wr_attr="1" valueType="unsigned int" />
+                      </ParameterList>
+            </Object>
+                    <Object name="Stats" shortname="LX" objectType="Single" wr_attr="1">
+                      <ParameterList>
+                        <Parameter name="ResetStatistics" wr_attr="3" valueType="boolean" />
+                        <Parameter name="PacketsSent" wr_attr="1" valueType="unsigned int" />
+                        <Parameter name="PacketsReceived" wr_attr="1" valueType="unsigned int" />
+                        <Parameter name="BytesSent" wr_attr="1" valueType="unsigned int" />
+                        <Parameter name="BytesReceived" wr_attr="1" valueType="unsigned int" />
+                        <Parameter name="PacketsLost" wr_attr="1" valueType="unsigned int" />
+                        <Parameter name="Overruns" wr_attr="1" valueType="unsigned int" />
+                        <Parameter name="Underruns" wr_attr="1" valueType="unsigned int" />
+                        <Parameter name="IncomingCallsReceived" wr_attr="1" valueType="unsigned int" />
+                        <Parameter name="IncomingCallsAnswered" wr_attr="1" valueType="unsigned int" />
+                        <Parameter name="IncomingCallsConnected" wr_attr="1" valueType="unsigned int" />
+                        <Parameter name="IncomingCallsFailed" wr_attr="1" valueType="unsigned int" />
+                        <Parameter name="OutgoingCallsAttempted" wr_attr="1" valueType="unsigned int" />
+                        <Parameter name="OutgoingCallsAnswered" wr_attr="1" valueType="unsigned int" />
+                        <Parameter name="OutgoingCallsConnected" wr_attr="1" valueType="unsigned int" />
+                        <Parameter name="OutgoingCallsFailed" wr_attr="1" valueType="unsigned int" />
+                        <Parameter name="CallsDropped" wr_attr="1" valueType="unsigned int" />
+                        <Parameter name="TotalCallTime" wr_attr="1" valueType="unsigned int" />
+                      </ParameterList>
+                    </Object>
+                    <Object name="Codec" shortname="LC" objectType="Single" wr_attr="1">
+                      <ParameterList>
+                        <Parameter name="TransmitCodec" wr_attr="1" valueType="string" len="64" />
+                        <Parameter name="ReceiveCodec" wr_attr="1" valueType="string" len="64" />
+                        <Parameter name="TransmitBitRate" wr_attr="1" valueType="unsigned int" />
+                        <Parameter name="ReceiveBitRate" wr_attr="1" valueType="unsigned int" />
+                        <Parameter name="TransmitSilenceSuppression" wr_attr="1" valueType="boolean" />
+                        <Parameter name="ReceiveSilenceSuppression" wr_attr="1" valueType="boolean" />
+                        <Parameter name="TransmitPacketizationPeriod" wr_attr="1" valueType="unsigned int" />
+                      </ParameterList>
+                      <ObjectList>
+                        <Object name="List" shortname="CL" objectType="Multi" wr_attr="3">
+                           <ParameterList>
+                            <Parameter name="Priority" wr_attr="3" valueType="unsigned int" />
+                            <Parameter name="EntryID" wr_attr="1" valueType="unsigned int" />
+                            <Parameter name="Codec" wr_attr="1" valueType="string" len="64" />
+                            <Parameter name="BitRate" wr_attr="1" valueType="unsigned int" />
+                            <Parameter name="PacketizationPeriod" wr_attr="3" valueType="string" len="64" />
+                            <Parameter name="SilenceSuppression" wr_attr="3" valueType="boolean" />
+                            <Parameter name="Enable" wr_attr="3" valueType="boolean" />
+                          </ParameterList>
+                        </Object>
+                      </ObjectList>
+                    </Object>
+                  </ObjectList>
+                </Object>
+              </ObjectList>
+            </Object> 
+            <Object name="X_00D0D0_CommonConfig" shortname="XC" objectType="Single" wr_attr="1">
+              <ObjectList>
+                <Object name="CLIP" shortname="XCPM" objectType="Single" wr_attr="1">
+                  <ParameterList>
+                    <Parameter name="mode" wr_attr="3" valueType="unsigned int" />
+                  </ParameterList>
+                </Object>
+               <Object name="Hardware" shortname="XCH" objectType="Single" wr_attr="1">
+                  <ObjectList>
+                    <Object name="CommonConfig" shortname="XCHC" objectType="Single" wr_attr="3">
+                      <ParameterList>
+                        <Parameter name="JitterMax" wr_attr="3" valueType="unsigned int" />
+                        <Parameter name="JitterMin" wr_attr="3" valueType="unsigned int" />
+                        <Parameter name="JitterMode" wr_attr="3" valueType="unsigned int" />
+                        <Parameter name="JitterTarget" wr_attr="3" valueType="unsigned int" />
+                        <Parameter name="comfortnoiseEnable" wr_attr="1" valueType="boolean" />
+                        <Parameter name="JitterSize" wr_attr="1" valueType="unsigned int" />
+                      </ParameterList>
+                    </Object>
+                  </ObjectList>
+                </Object>
+              </ObjectList>
+            </Object>
+          </ObjectList>
+        </Object>
+        <Object name="X_00D0D0_IPTV" shortname="IPTV" objectType="Single" wr_attr="1">
+          <ObjectList>
+            <Object name="STBDevice" shortname="StbBindCfg" objectType="Multi" wr_attr="3">
+              <ParameterList>
+                <Parameter name="Enable" wr_attr="3" valueType="boolean" />
+                <Parameter name="VendorClassID" wr_attr="3" valueType="string" len="64" />
+              </ParameterList>
+            </Object>
+          <Object name="STBMacOrOui" shortname="OuiOrMac" objectType="Multi" wr_attr="3">
+              <ParameterList>
+                <Parameter name="Enable" wr_attr="3" valueType="boolean" />
+                <Parameter name="MacOrOui" wr_attr="3" valueType="string" len="32" />
+              </ParameterList>
+            </Object>
+          </ObjectList>
+        </Object> 
+        <Object name="X_00D0D0_ECO" shortname="ECO" objectType="Single" wr_attr="1">
+            <ParameterList>
+                <Parameter name="Enable" wr_attr="3" valueType="boolean" />
+            </ParameterList>
+        </Object>           
+      </ObjectList>
+    </Object>
+    <Object name="X_00D0D0_PrintSharing" shortname="UsbPrint" objectType="Single" wr_attr="1">
+      <ParameterList>
+        <Parameter name="State" wr_attr="3" valueType="boolean" />
+      </ParameterList>
+    </Object>
+    <Object name="X_00D0D0_ContentSharing" shortname="SambaCfg" objectType="Single" wr_attr="1">
+      <ParameterList>
+        <Parameter name="State" wr_attr="3" valueType="boolean" />
+        <Parameter name="ServerName" wr_attr="3" valueType="string" len="256" />
+        <Parameter name="ServerDescription" wr_attr="3" valueType="string" len="256" />
+        <Parameter name="Workgroup" wr_attr="1" valueType="string" len="256" />
+        <Parameter name="FtpEnable" wr_attr="3" valueType="boolean" />
+        <Parameter name="FTPSecurity" wr_attr="3" valueType="boolean" />
+        <Parameter name="FtpUserName" wr_attr="3" valueType="string" len="256" /> 
+        <Parameter name="FtpPassword" wr_attr="3" valueType="string" len="256" /> 
+        <Parameter name="FTPServerAddress" wr_attr="1" valueType="string" len="32" /> 
+      </ParameterList>
+    </Object>
+    <Object name="X_00D0D0_Function" shortname="FUNC" objectType="Single" wr_attr="1">
+      <ObjectList>
+        <Object name="Telnet" shortname="TEL" objectType="Single" wr_attr="1">
+          <ParameterList>
+            <Parameter name="Enable" wr_attr="3" valueType="boolean" />
+            <Parameter name="UserName" wr_attr="3" valueType="string" len="256" />
+            <Parameter name="Password" wr_attr="3" valueType="string" len="256" />
+            <Parameter name="Port" wr_attr="3" valueType="int" />
+          </ParameterList>
+        </Object>
+      </ObjectList>
+    </Object>
+  <Object name="X_00D0D0_UPnP" shortname="UPNP" objectType="Single" wr_attr="1">
+      <ParameterList>
+        <Parameter name="State" wr_attr="3" valueType="boolean" />
+      </ParameterList>
+        </Object>
+
+    <Object name="X_00D0D0_WebAccessUser" shortname="WEBUSER" objectType="Multi" wr_attr="1">
+      <ParameterList>
+        <Parameter name="Username" wr_attr="3" valueType="string" len="256" />
+        <Parameter name="Password" wr_attr="3" valueType="string" len="256" />
+        <Parameter name="AccessRight" wr_attr="1" valueType="string" len="16" />
+      </ParameterList>
+    </Object>
+    <Object name="X_00D0D0_Firewall" shortname="FW" objectType="Single" wr_attr="3">
+      <ParameterList>
+        <Parameter name="SelectedLevel" wr_attr="3" valueType="unsigned int" />
+        <Parameter name="LevelNumberOfEntries" wr_attr="1" valueType="unsigned int" />
+        <Parameter name="ChainNumberOfEntries" wr_attr="1" valueType="unsigned int" />
+        <Parameter name="EnableIntrusionDetection" wr_attr="3" valueType="boolean" />
+      </ParameterList>
+      <ObjectList>
+        <Object name="Level" shortname="Level" objectType="Multi" wr_attr="3">
+          <ParameterList>
+            <Parameter name="Name" wr_attr="3" valueType="string" len="32" />
+            <Parameter name="Order" wr_attr="3" valueType="unsigned int" />
+            <Parameter name="Description" wr_attr="3" valueType="string" len="32" />
+            <Parameter name="Chain" wr_attr="3" valueType="string" len="64" />
+            <Parameter name="RespondToPing" wr_attr="3" valueType="boolean" />
+          </ParameterList>
+        </Object>
+        <Object name="Chain" shortname="Chain" objectType="Multi" wr_attr="3">
+          <ParameterList>
+            <Parameter name="Name" wr_attr="3" valueType="string" len="32" />
+            <Parameter name="Type" wr_attr="3" valueType="unsigned int" />
+            <Parameter name="RuleNumberOfEntries" wr_attr="1" valueType="unsigned int" />
+          </ParameterList>
+          <ObjectList>
+            <Object name="Rule" shortname="Rule" objectType="Multi" wr_attr="3">
+              <ParameterList>
+                <Parameter name="Enable" wr_attr="3" valueType="boolean" />
+                <Parameter name="Order" wr_attr="3" valueType="unsigned int" />
+                <Parameter name="Description" wr_attr="3" valueType="string" len="32" />
+                <Parameter name="Target" wr_attr="3" valueType="unsigned int" />
+                <Parameter name="TargetChain" wr_attr="3" valueType="string" len="64" />
+                <Parameter name="SourceIP" wr_attr="3" valueType="string" len="16" />
+                <Parameter name="SourceIPEnd" wr_attr="3" valueType="string" len="16" />
+                <Parameter name="SourceIPMask" wr_attr="3" valueType="string" len="16" />
+                <Parameter name="DestinationIP" wr_attr="3" valueType="string" len="16" />
+                <Parameter name="DestinationEnd" wr_attr="3" valueType="string" len="16" />
+                <Parameter name="DestinationIPMask" wr_attr="3" valueType="string" len="16" />
+                <Parameter name="SourceInterface" wr_attr="3" valueType="string" len="256" />
+                <Parameter name="DestinationInterface" wr_attr="3" valueType="string" len="256" />
+                <Parameter name="Protocol" wr_attr="3" valueType="string" len="16" />
+                <Parameter name="SourcePort" wr_attr="3" valueType="int" />
+                <Parameter name="SourcePortRangeEnd" wr_attr="3" valueType="int" />
+                <Parameter name="DestinationPort" wr_attr="3" valueType="int" />
+                <Parameter name="DestinationPortRangeEnd" wr_attr="3" valueType="int" />
+              </ParameterList>
+            </Object>
+          </ObjectList>
+        </Object>
+        <Object name="ALG" shortname="ALG" objectType="Single" wr_attr="3">
+          <ParameterList>
+            <Parameter name="FTPALG" wr_attr="3" valueType="boolean" />
+            <Parameter name="TFTPALG" wr_attr="3" valueType="boolean" />
+            <Parameter name="SIPALG" wr_attr="3" valueType="boolean" />
+            <Parameter name="L2TPALG" wr_attr="3" valueType="boolean" />
+            <Parameter name="H323ALG" wr_attr="3" valueType="boolean" />
+            <Parameter name="RTSPALG" wr_attr="3" valueType="boolean" />
+            <Parameter name="PPTPALG" wr_attr="3" valueType="boolean" />
+            <Parameter name="IPSECALG" wr_attr="3" valueType="boolean" />
+          </ParameterList>
+        </Object>
+      </ObjectList>
+    </Object>
+    <Object name="DMZ" shortname="DMZ" objectType="Single" wr_attr="1">
+      <ParameterList>
+        <Parameter name="Enable" wr_attr="3" valueType="boolean" />
+        <Parameter name="HostIPAddress" wr_attr="3" valueType="string" len="16" />
+     </ParameterList>
+    </Object>
+  <Object name="X_00D0D0_VersionSwitch" shortname="VERSION" objectType="Single" wr_attr="1">
+      <ParameterList>
+        <Parameter name="VersionSwitch" wr_attr="3" valueType="boolean" />
+      </ParameterList>
+    </Object>
+    <Object name="X_00D0D0_DebugTrace" shortname="DEBUG" objectType="Single" wr_attr="1">
+        <ObjectList>
+            <Object name="DNS" shortname="DNS" objectType="Single" wr_attr="1">
+              <ParameterList>
+                <Parameter name="Enable" wr_attr="3" valueType="boolean" />
+                <Parameter name="Reset" wr_attr="3" valueType="boolean" />                
+                <Parameter name="Log" wr_attr="1" valueType="string" len="32768" />
+             </ParameterList>
+            </Object>
+            <Object name="SIP" shortname="SIP" objectType="Single" wr_attr="1">
+              <ParameterList>
+                <Parameter name="Enable" wr_attr="3" valueType="boolean" />
+                <Parameter name="Reset" wr_attr="3" valueType="boolean" />                
+                <Parameter name="Log" wr_attr="1" valueType="string" len="32768" />
+              </ParameterList>
+            </Object>
+            <Object name="CWMP" shortname="CWMP" objectType="Single" wr_attr="1">
+              <ParameterList>
+                <Parameter name="Enable" wr_attr="3" valueType="boolean" />
+                <Parameter name="Reset" wr_attr="3" valueType="boolean" />                
+                <Parameter name="Log" wr_attr="1" valueType="string" len="32768" />
+              </ParameterList>
+            </Object>
+            <Object name="CallLog" shortname="CALLLOG" objectType="Single" wr_attr="1">
+              <ParameterList>                  
+                <Parameter name="IncomingCalls" wr_attr="1" valueType="string" len="32768" />
+                <Parameter name="OutgoingCalls" wr_attr="1" valueType="string" len="32768" />
+              </ParameterList>
+            </Object>
+            <Object name="PortMirroring" shortname="PortMirroring" objectType="Single" wr_attr="1">
+              <ParameterList>
+                <Parameter name="Enable" wr_attr="3" valueType="boolean" />
+                <Parameter name="MirrorPort" wr_attr="3" valueType="string" len="8" />
+              </ParameterList>
+            </Object>
+        </ObjectList>
+    </Object>
+    <Object name="X_00D0D0_MiniJumbo" shortname="MINIJUMBO" objectType="Single" wr_attr="1">
+      <ParameterList>
+        <Parameter name="Enable" wr_attr="3" valueType="boolean" />
+        </ParameterList>
+    </Object>
+    <Object name="X_00D0D0_RateLimit" shortname="RATELIMIT" objectType="Single" wr_attr="1">
+      <ParameterList>
+        <Parameter name="RateLimitEnable" wr_attr="3" valueType="boolean" />
+        <Parameter name="LimitRate" wr_attr="3" valueType="unsigned int" />
+      </ParameterList>
+    </Object>
+    <Object name="X_00D0D0_UsbDevice" shortname="UsbDev" objectType="Multi" wr_attr="1">
+      <ParameterList>
+        <Parameter name="DeviceName" wr_attr="1" valueType="string" len="20"/>
+        <Parameter name="DeviceType" wr_attr="1" valueType="string" len="20"/>
+        <Parameter name="USBPanelPort" wr_attr="1" valueType="unsigned int" />
+        <Parameter name="DeviceID" wr_attr="1" valueType="string" len="20"/>
+      </ParameterList>
+    </Object>     
+    <Object name="X_00D0D0_UsbStorage" shortname="USPar" objectType="Multi" wr_attr="1">
+      <ParameterList>
+        <Parameter name="DiskName" wr_attr="1" valueType="string" len="32"/>
+        <Parameter name="FileSystemType" wr_attr="1" valueType="string" len="32"/>
+        <Parameter name="MountPath" wr_attr="1" valueType="string" len="128"/>
+        <Parameter name="Status" wr_attr="1" valueType="string" len="64"/>
+      </ParameterList>
+    </Object>  
+    <Object name="X_00D0D0_DMS" shortname="DMS" objectType="Single" wr_attr="1">
+      <ParameterList>
+        <Parameter name="Enable" wr_attr="3" valueType="boolean" />
+        <Parameter name="DmsName" wr_attr="1" valueType="string" len="128" />
+        <Parameter name="MediaSource" wr_attr="1" valueType="string" len="1024" />
+      </ParameterList>
+    </Object>
+   </ObjectList>
+</Object>
+

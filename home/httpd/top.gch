@@ -1,0 +1,259 @@
+<%
+var head      = "<!DOCTYPE html PUBLIC \"-\/\/W3C\/\/DTD XHTML 1.0 Transitional\/\/EN\"";
+var head1     = "\"http:\/\/www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">";
+var head_html = "<html xmlns=\"http:\/\/www.w3.org/1999/xhtml\">";
+=head + head1;
+=head_html;
+%>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title><%=getenv("WEBTitle");%></title>
+<style>
+<%
+IMPORT FILE "&?css2path;";
+IMPORT FILE "&?csslang;";
+%>
+</style>
+</head>
+<%
+IMPORT FILE "auth_check_gch.gch";
+IMPORT FILE "common_gch.gch";
+
+
+if(getenv("IsRefresh") == "N/A")
+{
+setenv("IsRefresh", "1");
+}
+else
+{
+setenv("IsRefresh", "0");
+}
+var selectSupId = getenv("selectSupId");
+var outflag = getenv("outflag");
+var Lang  = request("_toplang");
+if (1 == outflag)
+{
+outflag = 0;
+setenv("outflag", 0);
+}
+if (selectSupId=="" || selectSupId=="N/A")
+{
+query_menu("NULL");
+selectSupId = query_menu_id(0);
+}
+var FP_HANDLE;
+if(is_login != 0)
+{
+if (Lang is NOT NULL)
+{
+FP_HANDLE = create_paralist();
+set_para(FP_HANDLE, "Timeout",  request("Timeout"));
+set_para(FP_HANDLE, "Language", Lang);
+set_inst(FP_HANDLE, "OBJ_USERIF_ID", "");
+if (Lang == "English")
+{
+set_language("langen.conf");
+}
+else
+{
+set_language("langcn.conf");
+}
+}
+}
+var language = "";
+var FP_HANDLE1 = "";
+var href_class = "";
+var div_class  = "";
+FP_HANDLE1 = create_paralist();
+get_inst(FP_HANDLE1, "OBJ_USERIF_ID", "");
+language = get_para(FP_HANDLE1,"Language");
+destroy_paralist(FP_HANDLE1);
+if (language == "English")
+{
+set_language("langen.conf");
+href_class = "logouten";
+div_class  = "langchinese";
+}
+else
+{
+set_language("langcn.conf");
+href_class = "logoutch";
+div_class  = "langenglish";
+}
+%>
+<script>
+function onClickLogout()
+{
+
+document.getElementById("logout").value = 1;
+document.flogout.submit();
+}
+function ChangeLang()
+{
+var lang = "<%=language;%>";
+document.getElementById("_toplang").disabled = false;
+if ("English" == lang)
+{
+document.getElementById("_toplang").value = "Chinese";
+}
+else if ("Chinese" == lang)
+{
+document.getElementById("_toplang").value = "English";
+}
+document.fLogin.submit();
+}
+var meta_menu = new Array();
+<%
+IMPORT FILE "dmenu_func.gch";
+IMPORT FILE "js/menu.js";
+visitMenuTree("initMC1", "");
+%>
+var enable_onChangeURL_func = 0;
+function onChangeURL(id)
+{
+var tag;
+if (enable_onChangeURL_func == 0)
+{
+return;
+}
+try{
+if(parent.frames["mainFrame"])
+{
+if(parent.frames["mainFrame"].document.getElementById("IF_UPLOADING") == null)
+tag = 0;
+else
+{
+tag = parent.frames["mainFrame"].document.getElementById("IF_UPLOADING").value;
+}
+}
+}
+catch(e)
+{
+tag = 0;
+}
+if (tag == "1")
+{
+parent.frames["topFrame"].location.href = "#";
+}
+else
+{
+parent.frames["mainFrame"].location.href = meta_menu[id]['URL'];
+}
+for( var supId in meta_menu )
+{
+document.getElementById(supId).style.background = "#80D549";
+document.getElementById(supId).setAttribute("class", "h1");
+document.getElementById(supId).setAttribute("className", "h1");
+}
+document.getElementById(id).style.background = "#3C9E00";
+document.getElementById(id).setAttribute("class", "h1_s");
+document.getElementById(id).setAttribute("className", "h1_s");
+}
+function recover()
+{
+var selectSupId = "<%=selectSupId;%>";
+var outflag = "<%=outflag;%>";
+if (0 == outflag)
+{
+for( var supId in meta_menu )
+{
+document.getElementById(supId).style.background = "#80D549";
+document.getElementById(supId).setAttribute("class", "h1");
+document.getElementById(supId).setAttribute("className", "h1");
+}
+document.getElementById(selectSupId).style.background = "#3C9E00";
+document.getElementById(selectSupId).setAttribute("class", "h1_s");
+document.getElementById(selectSupId).setAttribute("className", "h1_s");
+}
+}
+function ontopLoad()
+{
+menuURLGen_Top();
+recover();
+enable_onChangeURL_func = 1;
+}
+<%
+if (Lang is NOT NULL)
+{
+setenv("outflag", 0); 
+%>
+top.topFrame.location.href  = top.topFrame.location.href;
+top.mainFrame.location.href = top.mainFrame.location.href;
+<%
+}
+%>
+<%
+if(is_login == 0 || getenv("IsRefresh") == 1)
+{
+%>
+top.location.href = top.location.href;
+<%
+}
+%>
+</script>
+<body onload="ontopLoad();">
+<form name="fLogin" id="fLogin" method="post"  onsubmit="return false;" action="">
+<input type="hidden" name="_toplang" ID="_toplang" value="" disabled>
+<input type="hidden" name="outflag" ID="outflag" value="" >
+</form>
+<form name="flogout" id="flogout" method="post"  onsubmit="return false;" action="/" target="_top">
+<input type="hidden" name="logout" id="logout" value="" >
+</form>
+<div id="container">
+<div id="head">
+<div class="type"><font id="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=getenv("WEBTitle");%></font></div>
+<div id="banner"  style="background:url(img/banner.gif) no-repeat;"></div>
+<div id="h1">
+<ul id="ul">
+<li class="h1_left" style='background:url(img/h1_left.gif) no-repeat left;  background-color:#69ce28;'>
+<%
+if (get_config("lang") == "Y")
+{
+%>
+<a id="TestLang1"  style="cursor:pointer" href="#">
+<div id="langChange" class="<%=div_class;%>" onclick="ChangeLang();"></div></a>
+<%
+}
+%>
+</li>
+<%
+var supIdName[20] = {""};
+var supNum = query_menu("NULL");
+for (var i=0; i<supNum; i++ )
+{
+supIdName[i] = query_menu_id(i);
+}
+for (var i=0; i<supNum; i++ )
+{
+var supNameTag  = query_menu_info(supIdName[i], "nameTag");
+var supLangName = load_string(supNameTag);
+if (supIdName[i] == "mmHelp" )
+{
+if ( get_config("help") == "Y")
+{
+%>
+<li ><font class="h1" class="space" style="cursor:pointer" id="<%=supIdName[i];%>" onclick="onChangeURL(id)"  target="mainFrame" ><%=supLangName;%></font></li>
+<%
+}
+else
+{
+%>
+<li><a style="width:80px;height:28px;position:absolute;top:63px;left:625px;z-index:1;background-color:#80D549;"></a></li>
+<%
+}
+}
+else
+{
+%>
+<li ><font class="h1" class="space" style="cursor:pointer" id="<%=supIdName[i];%>" onclick="onChangeURL(id)"  target="mainFrame" ><%=supLangName;%></font></li>
+<%
+}
+}
+%>
+<li class="h1_right" style='background:url(img/h1_right.gif) no-repeat right;background-color:#80D549;'><a id="logout_id" class="<%=href_class;%>" href="#" onclick="onClickLogout()"></a></li>
+</ul>
+</div>
+</div>
+</div>
+</body>
+</html>

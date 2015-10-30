@@ -1,0 +1,216 @@
+# /etc/init.debug:debug mode system-wide  for the Bourne shells
+
+
+
+
+#################################
+# 创建临时内存文件系统       #
+#################################
+ 
+# create directory in /var mounted for TMPFS
+ mkdir -p /var/log /var/run /var/state/dhcp /var/ppp /var/udhcpd /var/zebra /var/siproxd /var/cache /var/iproute2 /var/ct/tmp /var/tmp
+ 
+#for route 
+mkdir -p /var/iproute2
+echo "" > /var/iproute2/rt_tables
+ 
+
+#生成配置文件
+ #user cfg region  
+usercfg_flashing 
+ 
+#################################
+# 加载eth、dsl、usb驱动   #
+#################################
+
+# /etc/modules_install /lib/modules/$KERNELVER/extra
+ test -e /lib/modules/$KERNELVER/extra/profdrvdd.ko && insmod /lib/modules/$KERNELVER/extra/profdrvdd.ko
+ test -e /lib/modules/$KERNELVER/extra/bcmxtmcfg.ko && insmod /lib/modules/$KERNELVER/extra/bcmxtmcfg.ko
+
+ test -e /lib/modules/$KERNELVER/extra/atmapi.ko && insmod /lib/modules/$KERNELVER/extra/atmapi.ko
+ test -e /lib/modules/$KERNELVER/extra/atmbonding.ko && insmod /lib/modules/$KERNELVER/extra/atmbonding.ko
+ test -e /lib/modules/$KERNELVER/extra/atmbondingeth.ko && insmod /lib/modules/$KERNELVER/extra/atmbondingeth.ko
+ test -e /lib/modules/$KERNELVER/extra/adsldd.ko && insmod /lib/modules/$KERNELVER/extra/adsldd.ko
+ test -e /lib/modules/$KERNELVER/extra/blaa_dd.ko && insmod /lib/modules/$KERNELVER/extra/blaa_dd.ko
+ test -e /lib/modules/$KERNELVER/kernel/net/atm/br2684.ko && insmod /lib/modules/$KERNELVER/kernel/net/atm/br2684.ko
+ test -e /lib/modules/$KERNELVER/extra/bcmprocfs.ko && insmod /lib/modules/$KERNELVER/extra/bcmprocfs.ko
+ test -e /lib/modules/$KERNELVER/extra/bcm_enet.ko && insmod /lib/modules/$KERNELVER/extra/bcm_enet.ko
+ #test -e /lib/modules/component/drivers/switch/rtl8306/switch_rtl8306.ko && insmod /lib/modules/component/drivers/switch/rtl8306/switch_rtl8306.ko 
+ test -e /lib/modules/component/drivers/switch/rtl8367/switch_rtl8367b.ko && insmod /lib/modules/component/drivers/switch/rtl8367/switch_rtl8367b.ko 
+ test -e /lib/modules/$KERNELVER/extra/vnet.ko && insmod /lib/modules/$KERNELVER/extra/vnet.ko
+ test -e /lib/modules/$KERNELVER/extra/bcm_usb.ko && insmod /lib/modules/$KERNELVER/extra/bcm_usb.ko
+#gaomin del ,for insmod in wlan manage 
+#test -e /lib/modules/$KERNELVER/extra/wl.ko && insmod /lib/modules/$KERNELVER/extra/wl.ko
+ test -e /lib/modules/$KERNELVER/extra/dspdd.ko && insmod /lib/modules/$KERNELVER/extra/dspdd.ko
+ test -e /lib/modules/$KERNELVER/extra/endpointdd.ko && insmod /lib/modules/$KERNELVER/extra/endpointdd.ko
+ test -e /lib/modules/2.6.21.5/kernel/drivers/slc/usr_line.ko && insmod /lib/modules/2.6.21.5/kernel/drivers/slc/usr_line.ko
+ test -e /lib/modules/2.6.21.5/kernel/drivers/slc/si3217x/si3217x_h201n.ko && insmod /lib/modules/2.6.21.5/kernel/drivers/slc/si3217x/si3217x_h201n.ko
+
+
+
+ test -e /lib/modules/component/drivers/slc/si3215bcm.ko && insmod /lib/modules/component/drivers/slc/si3215bcm.ko
+ test -e /lib/modules/component/drivers/slc/si3050bcm.ko && insmod /lib/modules/component/drivers/slc/si3050bcm.ko
+
+# add by lxw for usbtest
+ test -e /lib/modules/2.6.8.1/kernel/drivers/usb/host/ehci-hcd.ko && insmod /lib/modules/2.6.8.1/kernel/drivers/usb/host/ehci-hcd.ko 
+ test -e /lib/modules/2.6.8.1/kernel/drivers/usb/host/ohci-hcd.ko && insmod /lib/modules/2.6.8.1/kernel/drivers/usb/host/ohci-hcd.ko 
+ test -e /lib/modules/2.6.8.1/kernel/drivers/usb/storage/usb-storage.ko && insmod /lib/modules/2.6.8.1/kernel/drivers/usb/storage/usb-storage.ko
+
+
+
+
+#################################
+#3。配置eth和dsl                     #
+#################################
+
+#br2684ctl -b -c 0 -e 0 -q cbr,aal5:max_pcr=1000,pcr=1000,min_pcr=0,cdvt=1000,mbs=1000 -a 8.83
+#ifconfig nas0 devcommon 512
+#ifconfig nas0 up
+ifconfig eth0 up 
+ifconfig eth1 up
+ifconfig eth2 up 
+ifconfig eth3 up
+ifconfig eth4 up 
+#usleep 10000
+#wbctl addif nas0 nbif0 0 00:00:00:00:00:00
+#ifconfig nbif0 up 
+usleep 10000
+brctl addbr br0
+usleep 10000
+brctl addif br0 eth0
+brctl addif br0 eth1
+#brctl addif br0 nbif0
+brctl addif br0 eth2
+brctl addif br0 eth3
+brctl addif br0 eth4
+usleep 10000
+ifconfig br0 192.168.1.1 
+ifconfig br0 promisc
+ifconfig br0 hw ether 00:d0:d0:11:21:32
+ifconfig br0 up
+brctl show
+usleep 10000
+
+
+
+
+#################################
+# 加载和配置wlan              #
+#################################
+
+#加载wlan驱动，并且设置MAC为：00:d0:d0:32:13:14
+test -e /lib/modules/$KERNELVER/extra/wl.ko && insmod /lib/modules/$KERNELVER/extra/wl.ko iMac0=0x0 iMac1=0xd0 iMac2=0xd0 iMac3=0x32 iMac4=0x13 iMac5=0x14
+wlctl -i wlan0 phy_watchdog 0
+wlctl -i wlan0 wds none
+wlctl -i wlan0 down
+wlctl -i wlan0 mbss 1
+wlctl -i wlan0 bss -C 0 down
+wlctl -i wlan0 bss -C 1 down
+wlctl -i wlan0 bss -C 2 down
+wlctl -i wlan0 bss -C 3 down
+wps_led off
+wlctl -i wlan0 ssid -C 0 wlan_test
+wlctl -i wlan0 ssid -C 1 SSID2
+wlctl -i wlan0 ssid -C 2 SSID3 
+wlctl -i wlan0 ssid -C 3 SSID4 
+ifconfig wlan0 down 2>/dev/null
+ifconfig wlan1 down 2>/dev/null
+ifconfig wlan2 down 2>/dev/null
+ifconfig wlan3 down 2>/dev/null
+wlctl radio on
+ifconfig wlan0 > /var/hwaddr 
+ifconfig wlan0 hw ether 00:D0:D0:32:13:14 2>/dev/null
+wlctl -i wlan0 cur_etheraddr 00:D0:D0:32:13:14  2>/dev/null
+ifconfig wlan1 hw ether 72:d0:d0:32:13:15 2>/dev/null
+wlctl -i wlan1 cur_etheraddr 72:d0:d0:32:13:15  2>/dev/null
+ifconfig wlan2 hw ether 72:d0:d0:32:13:16 2>/dev/null
+wlctl -i wlan2 cur_etheraddr 72:d0:d0:32:13:16  2>/dev/null
+ifconfig wlan3 hw ether 72:d0:d0:32:13:17 2>/dev/null
+wlctl -i wlan3 cur_etheraddr 72:d0:d0:32:13:17  2>/dev/null
+wlctl -i wlan0  ap 1
+wlctl -i wlan0 closed 0
+wlctl  country CN
+wlctl -i wlan0  band b
+wlctl -i wlan0 regulatory 0
+wlctl -i wlan0 radar 0 2>/dev/null
+wlctl -i wlan0 spect 0 2>/dev/null
+wlctl -i wlan0 regulatory 1
+wlctl -i wlan0 afterburner_override 0
+echo 0 >/proc/sys/net/qos_type
+wlctl -i wlan0 wme 0 2>/dev/null
+wlctl -i wlan0 afterburner_override -1
+wlctl -i wlan0 frameburst 1
+wlctl -i wlan0 maxassoc 32
+wlctl -i wlan0 bss_maxassoc 32
+wlctl -i wlan0 gmode Auto
+wlctl -i wlan0 rateset 1b 2b 5.5b 6 9 11b 18 12 24 36 48 54
+wlctl -i wlan0 gmode_protection_override -1
+wlctl -i wlan0 gmode_protection_control 2
+wlctl -i wlan0 plcphdr auto
+wlctl rate 0
+wlctl bg_rate 0 
+wlctl -i wlan0 mrate -1
+wlctl -i wlan0 bg_mrate -1
+wlctl -i wlan0 rtsthresh 2347
+wlctl -i wlan0 fragthresh 2346
+wlctl -i wlan0 dtim 1
+wlctl -i wlan0  bi 100
+wlctl -i wlan0 wds none
+wlctl -i wlan0 pwr_percent 100
+wlctl -i wlan0 mac none
+wlctl -i wlan0 macmode 0
+wlctl -i wlan0 lazywds 0
+wlctl -i wlan0 wds 
+wlctl -i wlan0 up
+wlctl -i wlan0 autochannel 1
+wlctl -i wlan0 autochannel 2
+wlctl -i wlan0 csscantimer 0
+wlctl -i wlan0 rmwep -C 0 0
+wlctl -i wlan0 rmwep -C 0 1
+wlctl -i wlan0 rmwep -C 0 2
+wlctl -i wlan0 rmwep -C 0 3
+wlctl -i wlan0 rmwep -C 1 0
+wlctl -i wlan0 rmwep -C 1 1
+wlctl -i wlan0 rmwep -C 1 2
+wlctl -i wlan0 rmwep -C 1 3
+wlctl -i wlan0 rmwep -C 2 0
+wlctl -i wlan0 rmwep -C 2 1
+wlctl -i wlan0 rmwep -C 2 2
+wlctl -i wlan0 rmwep -C 2 3
+wlctl -i wlan0 rmwep -C 3 0
+wlctl -i wlan0 rmwep -C 3 1
+wlctl -i wlan0 rmwep -C 3 2
+wlctl -i wlan0 rmwep -C 3 3
+wlctl -i wlan0 auth -C 0 0
+wlctl -i wlan0 wpa_auth -C 0 0
+wlctl -i wlan0 wsec -C 0 0
+wlctl -i wlan0 auth -C 0 0
+wlctl -i wlan0  eap 0
+wlctl -i wlan0 bss -C 0 up
+ifconfig wlan0 up
+ifconfig wlan1 down
+ifconfig wlan2 down
+ifconfig wlan3 down
+nvram set lan_ifname=br0
+killall wsccmd
+killall 11d2d
+wlctl -i wlan0 phy_watchdog 1
+
+brctl addif br0 wlan0
+
+echo "*******************************************************"
+echo "wlan parameters have been set up, wait 1 minite...
+ESSID:      wlan_test
+Security:   NONE
+IP:         192.168.1.1
+MAC         00:d0:d0:32:13:14"
+echo "Remember config your wireless netcad ip: 192.168.1.8"
+echo "*******************************************************"
+
+#################################
+# 5 设置主机名称，不启动telnetd #
+#################################
+hostname "ZXV10 H220N"
+#telnetd&
+
+voip&

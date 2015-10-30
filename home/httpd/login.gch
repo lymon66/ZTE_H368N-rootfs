@@ -1,0 +1,345 @@
+<%
+IMPORT FILE "pageinfo_func.gch";
+unsetenv("gw_saveurl");
+unsetenv("gw_refreshtime");
+var g_remote_assist_status = getenv("g_remote_assist_status");
+if (g_remote_assist_status=="y" && isWANAccess()==0)
+{
+var remote_assist_time = getenv("g_remote_assist_time");
+var ts = timestamp();
+remote_assist_time = integer(remote_assist_time);
+ts = integer(ts);
+
+var FP_HANDLE = create_paralist();
+get_inst(FP_HANDLE, "OBJ_RMACCESSWEB_ID", "");
+var Timeout    = get_para(FP_HANDLE,"Timeout");
+destroy_paralist(FP_HANDLE);
+var minute = (Timeout - (ts - remote_assist_time))/60 + 1;
+var text = "<div align='center'><br><br><br><font size=8><b>&?pfw11;";
+if (minute == 1)
+{
+text += minute + "&?pfw13;";
+}
+else
+{
+text += minute + "&?pfw12;";
+}
+text += "</b><div>";
+= text;
+break;
+}
+unsetenv("gw_timeout");
+var oldclient = getenv("Clientaddr");
+var ca = get_remote_addr();
+var ct = timestamp();
+var time_last = getenv("Lastvisit");
+var value     = getIdleTime();
+var idle      = integer(value);
+setenv("gw_timeout", idle);
+if (idle IS NULL || idle == 0)
+idle = 300;
+else
+idle *= 60;
+if(time_last IS NOT NULL && ((ct - time_last)>idle))
+{
+oldclient = "N/A";
+}
+if(oldclient IS NULL || oldclient == "N/A" || (get_config("OneUserOnly") == "N"))
+{
+}else
+{
+if(oldclient != ca)
+{
+="<div align='center'><br><br><br><font size=8><b>&?error_515;<br>&?error_516;</b><div>";
+break;
+}
+}
+setenv("token_tmp", timestamp());
+var page_token = getenv("token_tmp");
+setenv(page_token, page_token);
+IMPORT FILE "auth_gch.gch";
+setenv("WEBTitle", getDevModeName());
+var flag      = 0; 
+    var time_flag = 0;
+var err_msg   = 0; 
+    var lognum    = getenv("count"); 
+    var logtime   = getenv("ca_time");
+    var curtime   = timestamp();
+    var lognumber = getenv("counter");
+if (lognumber == "N/A")
+lognumber = 0;
+else
+lognumber = integer(lognumber);
+if (lognum == "N/A")
+lognum = 0;
+else
+lognum = integer(lognum);
+if (logtime == "N/A")
+logtime = curtime;
+if (((integer(curtime) - integer(logtime)) > 60)&&(lognumber == 3))
+{
+unsetenv("count");
+unsetenv("ca_time");
+unsetenv("counter");
+lognumber = 0;
+lognum = 0;
+}
+if(Username IS NOT NULL && Username != "" && lognumber != 3)
+{
+flag = 1;
+if(getenv("IsLogin") == 1)
+{
+lognum = 0;
+unsetenv("elogin"); 
+            setenv("weblogin", 1);
+if((getenv("IsChanged") == "1")||(getenv("Right") == "1"))
+{
+IMPORT FILE "frame.gch";
+}
+else
+{
+IMPORT FILE "login_user_pass.gch";
+}
+setenv("count", lognum);
+return;
+}
+else
+{
+if(lognum >= 3)
+{
+lognum=0;
+}
+lognum=1+lognum;
+}
+}
+setenv("count", lognum);
+if(lognum == 3)
+{
+setenv("counter",lognum);
+setenv("ca_time", curtime);
+}
+setenv("IsRefresh", "0");
+
+setenv("outflag",1);
+var language = "";
+var langclass = "";
+var styleback = "";
+language = getenv("gw_lang");
+if (language == "English")
+{
+set_language("langen.conf");
+langclass = "login_title_centerch";
+styleback = "background:url(../img/login_chinese.gif) no-repeat left top;";
+}
+else
+{
+set_language("langcn.conf");
+langclass = "login_title_centeren";
+styleback = "background:url(../img/login_english.gif) no-repeat left top;";
+}
+var FP_HANDLE = create_paralist();
+get_inst(FP_HANDLE, "OBJ_USBPORTNUM_ID", "");
+var portnum = get_para(FP_HANDLE,"PortNum");
+if (portnum == "0")
+{
+setenv("usbpage", "N");
+}
+destroy_paralist(FP_HANDLE);
+query_list("OBJ_USERINFO_ID", "IGD");
+var FP_IDENTITY = query_identity(0);
+FP_HANDLE = create_paralist();
+get_inst(FP_HANDLE, "OBJ_USERINFO_ID", FP_IDENTITY);
+UserName = get_para(FP_HANDLE, "Username");
+UserName = delMoreSlash(UserName);
+destroy_paralist(FP_HANDLE);
+var head      = "<!DOCTYPE html PUBLIC \"-\/\/W3C\/\/DTD XHTML 1.0 Transitional\/\/EN\"";
+var head1     = "\"http:\/\/www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">";
+var head_html = "<html xmlns=\"http:\/\/www.w3.org/1999/xhtml\">";
+=head + head1;
+=head_html;
+%>
+<head>
+<META HTTP-EQUIV="pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title><%=getenv("WEBTitle");%></title>
+<LINK REL="stylesheet" HREF="&?css1path;" TYPE="text/css" />
+<LINK REL="stylesheet" HREF="&?csslang;" TYPE="text/css" />
+<script>
+function getObj(id)
+{
+return(document.getElementById(id));
+}
+var time="60";
+function setTime()
+{
+time=time-1;
+getObj("time").innerHTML=time+"&?login005;";
+}
+function setinner(type)
+{
+getObj("myLayer").style.visibility = type ;
+}
+function Transfer_meaning(id,value)
+{
+getObj(id).value=value;
+}
+function onFocus()
+{
+if( getObj("Frm_Username1").disabled == false )
+{
+getObj("Frm_Username1").focus();
+}
+else if(getObj("Frm_Password").disabled == false)
+{
+getObj("Frm_Password").focus();
+}
+}
+function ChangeLang()
+{
+var lang = "<%=language;%>";
+getObj("_lang").disabled = false;
+getObj("Frm_Username").disabled = true;
+getObj("Frm_Password").disabled = true;
+if(true != getObj("TestLang01").disabled)
+{
+if ("English" == lang)
+{
+getObj("_lang").value = "Chinese";
+}
+else if ("Chinese" == lang)
+{
+getObj("_lang").value = "English";
+}
+document.fLogin.submit();
+}
+}
+</script>
+</head>
+<body onload="onFocus();">
+<div id="myLayer" onClick="setinner('hidden')" style="position:absolute; width:185px; height:91px; z-index:9; left: 780px; top: 140px; background: url(img/pop_up.gif) no-repeat; border: 1px none #000000; visibility: hidden;">
+<div id="Layer1" style="position:absolute; width:180px; height:45px; z-index:10; left: 2px; top: 28px;">
+<table width="183" border="0">
+<tr>
+<td width="183">&nbsp;&nbsp;<font id="errmsg" class="notecontent" ></font><span id="time" style="color:red;display:none;">60&?login005;</span></td>
+</tr>
+</table>
+</div>
+<div id="Layer3" style="position:absolute; width:140px; height:10px; z-index:11; left: 34px; top: 9px; font-size: 8pt;">
+<font  class="note" id="errnote">&nbsp;&?ErrRep;</font>
+</div>
+</div>
+<div id="container">
+<div id="head">
+<div class="type"><font id="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=getenv("WEBTitle");%></font></div>
+<div id="banner" style="background-image:url(img/banner.gif); background-repeat:no-repeat"></div>
+</div>
+<div id="loginArea">
+<form name="fLogin" id="fLogin" method="post"  onsubmit="return false;" action="/">
+<input type="hidden" name="_lang" id="_lang" value="" disabled>
+<input type="hidden" name="frashnum" id="frashnum" value="">
+<input type="hidden" name="Frm_Logintoken" id="Frm_Logintoken" value="">
+<input type="hidden"  name="Username" id="Frm_Username" value="<%=UserName;%>">
+<div class="login_frame">
+<ul class="login_title">
+<li class="login_title_left"></li>
+<li class="login_title_center">&?login001;</li>
+<%
+
+
+if (get_config("lang") == "Y")
+{
+%>
+<a id="TestLang" style="cursor:pointer" href="#" ><li id="TestLang01" class="<%=langclass;%>" style="<%=styleback;%>" onclick="ChangeLang();"></li></a>
+<%}%>
+<li class="login_title_right"></li>
+</ul>
+<div class="content login_content">
+<ul class="login_blank"></ul>
+<ul class="login_ul_1">
+<li class="login_li_1"><span>&?login002;</span></li>
+<li class="login_li_2">
+<input type="text" class="username" name="Username1" id="Frm_Username1" value="<%=UserName;%>" disabled>
+</li>
+</ul>
+<ul class="login_blank"></ul>
+<ul class="login_ul_1">
+<li class="login_li_1"><span>&?login003;</span></li>
+<li class="login_li_2">
+<input type="password" class="password" name="Password"  id="Frm_Password">
+</li>
+<li class="login_li_3">
+<input class="login" type="submit"  id="LoginId"  value="&?login004;"  onclick="dosubmit()">
+</li>
+</ul>
+</div>
+</div>
+</form>
+</div>
+<%
+if(get_config("hideCopyRight")!="Y")
+{
+%>
+<div class="content" style="text-align:center;"> &?ZTE; </div>
+<%
+}
+%>
+<div class="bottom_line"></div>
+<div id="bottomx"></div>
+</div>
+</body>
+</html>
+<script>
+<%
+if(flag == 1)
+{
+%>
+var Lognumber = <%=lognum;%>;
+if( Lognumber <= 3)
+{
+getObj("errmsg").innerHTML = "&?1002;";
+getObj("myLayer").style.visibility = "visible" ;
+}
+<%
+}
+%>
+if(<%=lognumber;%> == 3||<%=lognum;%>==3)
+{
+SetDisabled();
+}
+function SetDisabled()
+{
+getObj("errmsg").innerHTML = "&?1003;";
+getObj("Frm_Username").disabled = true;
+getObj("Frm_Password").disabled = true;
+getObj("LoginId").disabled = true;
+
+getObj("myLayer").style.visibility = "visible" ;
+getObj("time").style.display = "" ;
+var timeout  = setTimeout("setDisable()",60000);
+var interval = setInterval("setTime()",1000);
+}
+function setDisable()
+{
+getObj("Frm_Username").disabled = false;
+getObj("Frm_Password").disabled = false;
+getObj("LoginId").disabled = false;
+
+getObj("time").style.display = "none";
+getObj("myLayer").style.visibility = "hidden";
+}
+function dosubmit()
+{
+if (getObj("Frm_Username").value == "")
+{
+getObj("errmsg").innerHTML = "&?1001;";
+getObj("myLayer").style.visibility = "visible" ;
+return;
+}
+else
+{
+getObj("Frm_Logintoken").value = "<%=page_token;%>";
+document.fLogin.submit();
+}
+}
+</script>

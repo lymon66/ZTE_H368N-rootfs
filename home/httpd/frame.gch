@@ -1,0 +1,58 @@
+<%
+var head      = "<!DOCTYPE html PUBLIC \"-\/\/W3C\/\/DTD XHTML 1.0 Transitional\/\/EN\"";
+var head1     = "\"http:\/\/www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">";
+var head_html = "<html xmlns=\"http:\/\/www.w3.org/1999/xhtml\">";
+=head + head1;
+=head_html;
+%>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title><%=getenv("WEBTitle");%></title>
+<style >
+* {
+margin: 0 0 0 0;
+padding: 0;
+}
+</style>
+</head>
+<script type="text/javascript">
+function reinitIframe()
+{
+var iframe = document.getElementById("mainFrame");
+try{
+var bHeight = iframe.contentWindow.document.body.scrollHeight;
+var dHeight = iframe.contentWindow.document.documentElement.scrollHeight;
+var height = Math.max(bHeight, dHeight);
+iframe.height =  height;
+}catch (ex){}
+}
+window.setInterval("reinitIframe()", 200);
+</script>
+<body align="center">
+<div align="center" style="margin:0 auto;" >
+<table width="778px"  border="0">
+<tr><td>
+<%
+var pagePath = "";
+if(getenv("gw_saveurl") != "N/A")
+{
+pagePath = "?" + getenv("gw_saveurl");
+unsetenv("gw_saveurl");
+unsetenv("gw_refreshtime");
+}
+else
+{
+if(getenv("NowUsingPage") != "N/A" && getenv("nowloginToken")== getenv("LastLoginToken"))
+{
+pagePath = "?pid=1002&nextpage=" + getenv("NowUsingPage");
+}
+}
+%>
+<iframe width="778px" height="91px" src="top.gch<%=pagePath;%>" name="topFrame" scrolling="no" frameborder="0" id="topFrame"></iframe>
+<iframe width="778px" src="template.gch<%=pagePath;%>" name="mainFrame" id="mainFrame" scrolling="no" frameborder="0" onload="this.height=350"></iframe>
+</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

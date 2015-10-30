@@ -1,0 +1,39 @@
+<%
+var Language  = request("_lang");
+var FP_HANDLE;
+if (Language is NOT NULL)
+{
+FP_HANDLE = create_paralist();
+set_para(FP_HANDLE, "Timeout",  request("Timeout"));
+set_para(FP_HANDLE, "Language", Language);
+set_inst(FP_HANDLE, "OBJ_USERIF_ID", "");
+}
+if (Language == "English")
+{
+set_language("langen.conf");
+}
+else if (Language == "Chinese")
+{
+set_language("langcn.conf");
+}
+var language = "";
+var FP_HANDLE1 = "";
+FP_HANDLE1 = create_paralist();
+get_inst(FP_HANDLE1, "OBJ_USERIF_ID", "");
+language = get_para(FP_HANDLE1,"Language");
+destroy_paralist(FP_HANDLE1);
+setenv("gw_lang", language);
+if (language == "English")
+set_language("langen.conf");
+else
+set_language("langcn.conf");
+var IsChanged = request("IsChanged");
+if( ("1" == IsChanged) && (getenv("weblogin") != "N/A") )
+{
+IMPORT FILE "login_user_pass.gch";
+}
+else
+{
+IMPORT FILE "login.gch";
+}
+%>

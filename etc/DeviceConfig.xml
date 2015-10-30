@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<scpd xmlns="urn:dslforum-org:service-1-0">
+<specVersion>
+<major>1</major>
+<minor>0</minor>
+</specVersion>
+<actionList>
+<action>
+<name>Reboot</name>
+<argumentList>
+</argumentList>
+</action>
+<action>
+<name>ConfigurationStarted</name>
+<argumentList>
+</argumentList>
+</action>
+<action>
+<name>ConfigurationFinished</name>
+<argumentList>
+</argumentList>
+</action>
+</actionList>
+<serviceStateTable>
+   <stateVariable sendEvents="no">
+      <name>A_ARG_TYPE_UUID</name>
+      <dataType>string</dataType>   
+  </stateVariable>
+  <stateVariable sendEvents="no">
+      <name>A_ARG_TYPE_Status</name>
+      <dataType>string</dataType>   
+   </stateVariable>
+</serviceStateTable>
+</scpd>
+
+

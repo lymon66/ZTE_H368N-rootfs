@@ -1,0 +1,572 @@
+<%
+var head      = "<!DOCTYPE html PUBLIC \"-\/\/W3C\/\/DTD XHTML 1.0 Transitional\/\/EN\"";
+var head1     = "\"http:\/\/www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">";
+var head_html = "<html xmlns=\"http:\/\/www.w3.org/1999/xhtml\">";
+=head + head1;
+=head_html;
+%>
+<head>
+<META HTTP-EQUIV="pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title><%=getenv("WEBTitle");%></title>
+<style>
+<%
+IMPORT FILE "&?css2path;";
+IMPORT FILE "&?csslang;";
+%>
+</style>
+<%
+IMPORT FILE "auth_check_gch.gch";
+if( getenv("elogin")== 1 )
+{
+is_login = 0;
+}
+var g_remote_assist_status = getenv("g_remote_assist_status");
+if (g_remote_assist_status=="y" && isWANAccess()==1)
+{
+var FP_HANDLE = create_paralist();
+set_para(FP_HANDLE, "TimerFlag", "1");
+set_para(FP_HANDLE, "WanFlag", "1");
+set_inst(FP_HANDLE, "OBJ_RMACCESSWEB_ID", "");
+undoDBSave();
+}
+var nextpage = request("nextpage");
+if(nextpage == "" || nextpage IS NULL)
+{
+var userright = getenv("Right");
+if (userright == 2)
+{
+nextpage = "status_dev_info_t.gch";
+}
+else
+{
+nextpage = "status_dev_info_t.gch";
+}
+}
+var upload_status, upload_type, upload_state, uploading;
+upload_status = getenv("status");
+upload_type   = getenv("type");
+upload_state  = getenv("state");
+uploading     = getenv("Uploading");
+var RemoteUgr = getenv("RemoteUgr");
+var pageback = getenv("pageback");
+if(pageback == "1")
+{
+upload_status = getenv("status2");
+upload_state = getenv("state2");
+upload_type = getenv("type2");
+RemoteUgr = getenv("RemoteUgr2");
+unsetenv("status2");
+unsetenv("state2");
+unsetenv("type2");
+unsetenv("RemoteUgr2");
+unsetenv("pageback");
+}
+if ( upload_type != "N/A")
+{
+}
+else
+{
+unsetenv("RemoteUgr2");
+}
+IMPORT FILE "dmenu_func.gch";
+if ( 0 == chkPageDisp(nextpage) )
+{
+is_login = 0;
+}
+var selectSupId = query_page_info(nextpage, "supId");
+setenv("selectSupId", selectSupId);
+%>
+<SCRIPT LANGUAGE="javascript">
+var g_errorInfo = "&?ErrRep;";
+var timeid;
+<%
+IMPORT FILE "js/common.js";
+IMPORT FILE "js/common_check.js";
+IMPORT FILE "js/pro_commom.js";
+IMPORT FILE "js/menu.js";
+if(is_login == 0)
+{
+%>
+top.location.href = "/";
+<%
+}
+else
+{
+setenv("NowUsingPage", nextpage);
+}
+setenv("LastLoginToken",getenv("nowloginToken"));
+if(idle IS NOT NULL && idle != "")
+{
+%>
+function OverTime()
+{
+if(timeid != null)
+{
+clearTimeout(timeid);
+}
+timeid=setTimeout("relogin()", <%=idle;%>*1000+5000);
+}
+function relogin()
+{
+alert("&?note_003;");
+document.getElementById("logout").value = 1;
+document.flogout.submit();
+}
+<%
+}
+var g_remote_assist_status = getenv("g_remote_assist_status");
+if (g_remote_assist_status=="y" && isWANAccess()==0)
+{
+%>
+top.location.href = "getpage.gch?pid=1001&logout=1";
+<%
+}
+%>
+<%
+var flag = 1;
+var WebScFlag = request("WebScFlag");
+if ( (isWANAccess()==0 && WebScFlag==1)
+|| (isWANAccess()==1 && WebScFlag==0) )
+{
+flag = 0;
+}
+if (flag == 1)
+{
+%>
+top.topFrame.location.reload();
+<%
+}
+%>
+OverTime();
+function setenter(e)
+{
+e = window.event?window.event:e;
+if( e == "[object]")
+{
+if (event.keyCode == 13 && event.srcElement.type == "text")
+{
+event.keyCode = 9;
+}
+}
+}
+</SCRIPT>
+<!--Ôö¼ÓiframeÊ¹´íÎóÌáÊ¾¿ò²»±»²»±»ÏÂÀ­²Ëµ¥¸øÕÚ¸Ç-->
+<body id="htmlBody">
+<div id="myLayer" onmousedown="setinner('hidden')" style="position:absolute; width:185px; height:91px; z-index:9; left: 506px; top: 140px; background: url(img/pop_up.gif) no-repeat; border: 1px none #000000; visibility: hidden;">
+<iframe id="myiframe" style="position: absolute; width: 179px; height: 88px; border: 1px none #000000; z-index: -1; filter:alpha(opacity=0); -moz-opacity:0">
+</iframe>
+<div id="Layer3" style="position:absolute; width:30px; height:10px; z-index:11; left: 34px; top: 9px; font-size: 8pt;">
+<table  width="140" border="0">
+<tr>
+<td><font  class="note" id="errnote">&nbsp;&?ErrRep;</font></td>
+</tr>
+</table>
+</div>
+<div id="Layer1" style="position:absolute; width:180px; height:45px; z-index:999; left: 2px; top: 28px;">
+<table width="183" border="0" height="60">
+<tr>
+<td width="183" Height="60px" valign="top">&nbsp;<font id="errmsg" class="notecontent" ></font></td>
+</tr>
+</table>
+</div>
+</div>
+<!--help²¿·Ö¿ªÊ¼-->
+<%
+%>
+<div id="alertFram" align="center" style="position:absolute; width:314px; height:height:auto; z-index:999; left: 380px; top: 9px; font-size: 9pt; display:none;">
+<div style='width:220px; position: absolute;' align=left id='dragAble' class='dragAble'>
+<div id='helpTextWrapper' style='position: relative'>
+<iframe id="helpiframe" style="position: absolute; width: 100%; display: block; border: 0px 0px; z-index: -1;"></iframe>
+<div>
+<table style='width:220px;background-color:#fff; border:1px solid #358238;' cellpadding='0' cellspacing='0'>
+<tr align='center'>
+<td style='height:23px;width:197px;background-color:#358238;'>
+<font align='left' color='#FFFFFF'><b>&nbsp;&?menu006;</b></font>
+</td>
+<td onclick='hideHelp();' style='height:23px;width:23px;background-color:#358238;cursor:pointer;'>
+<img src='img/close.gif' border='0'>
+</td>
+</tr>
+<tr>
+<td colspan='2' height='200px' width='220px' valign='top' align='left' class='word-break-all' style='padding:5px 0 0 10px;'>
+<%=load_string(query_page_info(nextpage, "helpTag"));%>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<!--help²¿·Ö½áÊø-->
+</div>
+<div id="container">
+<!--content²¿·Ö¿ªÊ¼-->
+<div class="content" id="content">
+<!--¶þ¡¢Èý¼¶²Ëµ¥¿ªÊ¼-->
+<div class="h2" id="menu0">
+</div>
+<!--¶þ¡¢Èý¼¶²Ëµ¥½áÊø-->
+<!--ÄÚÈÝ¿ªÊ¼-->
+<div id="div1">
+<%
+if(is_login != 0)
+{
+IMPORT FILE nextpage;
+}
+%>
+</div>
+<!--ÄÚÈÝ½áÊø-->
+<div class="bottom_div" id="bottom">&nbsp;
+</div>
+</div>
+<!--content²¿·Ö½áÊø-->
+<!--bottom²¿·Ö¿ªÊ¼-->
+<div class="content copyright">  <%if(get_config("hideCopyRight")!="Y"){%>&?ZTE;<%}%>  </div>
+<div class="bottom_line"></div>
+<div id="bottomx"></div>
+<!--bottom²¿·Ö½áÊø-->
+</div>
+<input type="hidden" id="IF_UPLOADING" name="IF_UPLOADING" value="">
+<form name="flogout" id="flogout" method="post"  onsubmit="return false;" action="/" target="_top">
+<input type="hidden" name="logout" id="logout" value="" >
+</form>
+</body>
+</html>
+<script language="javascript">
+<%
+IMPORT FILE "pagefunc_js.gch";
+%>
+getObj("IF_UPLOADING").value = "<%=uploading;%>";
+text  = "<table class='bottom_table' border='0' cellpadding='0' cellspacing='0'>"
++"<tbody><tr>"
++"<td class='bottom_td1'></td>"
++"<td class='bottom_td2' style='background:url(img/bottom_left.gif) no-repeat left top;'></td>"
++"<td class='bottom_td3'>"
+<%
+var staFlag = query_page_info(nextpage, "staFlag");
+switch(staFlag)
+{
+case 1:
+case 6:
+%>
++"<input name='Submit' type='button'id='Btn_ReFresh' onclick=pageReFresh() class='button' value=' &?btn001; ' />&nbsp;&nbsp;&nbsp;"
+<%
+break;
+case 3:
+%>
++"<input name='Submit' type='button' id='Btn_Add' onclick=pageAdd()  class='button' value=' &?btn002; ' />"
++"<input name='Submit' type='button' id='Btn_Cancel' onclick=pageCancel()  class='button' value=' &?btn004; '>&nbsp;&nbsp;&nbsp;"
++"<input name='Submit' type='button' id='Btn_DoEdit' onclick=pageEdit()  class='button' value=' &?btn003; ' style='display:none'/>"
++"<input name='Submit' type='button' id='Btn_Delete' onclick=pageDel()  class='button' value=' &?btn006; ' style='display:none'/>&nbsp;&nbsp;&nbsp;"
+<%
+break;
+case 2:
+%>
++"<input name='Submit' type='button' id='Btn_Submit' onclick=pageSubmit()  class='button' value=' &?btn005; ' />&nbsp;"
++"<input name='Submit' type='button' id='Btn_Cancel' onclick=pageCancel()  class='button' value=' &?btn004; '>&nbsp;&nbsp;&nbsp;"
+<%
+break;
+case 7:
+%>
++"<input name='Back' type='button' id='Btn_Back' onclick=pageBack()  class='button' value=' &?btn013; ' />&nbsp;"
+<%
+break;
+default:
+break;
+}
+%>
++"</td></tr></tbody>"
++"</table>";
+getObj("bottom").innerHTML=text;
+<%
+if(staFlag != 1 && staFlag != 0)
+{
+%>
+getObj("myLayer").style.left = "580px";
+getObj("myLayer").style.top  = "59px";
+<%
+if(is_login != 0)
+{
+if (get_config("showerror")=="Y")
+{
+%>
+ShowError();
+<%
+}
+%>
+pageLoad(getURL("<%=nextpage;%>"));
+<%
+}
+    }
+%>
+meta_menu        = new Array();
+menu_items       = new Array();
+menu_subitems    = new Array();
+<%
+visitMenuTree("initM", nextpage);
+%>
+<%
+if (getenv("usbpage") == "N")
+{
+%>
+for ( var supId in meta_menu )
+{
+if (supId == "mmStatu")
+{
+for ( var midId in menu_items[supId] )
+{
+if (midId == "smLanStatu")
+{
+var a_t = new Array();
+for (var subId in menu_subitems[supId][midId])
+{
+if (subId != "ssmUSB")
+{
+a_t[subId] = menu_subitems[supId][midId][subId];
+}
+}
+menu_subitems[supId][midId] = a_t;
+}
+}
+}
+else if (supId == "mmApp")
+{
+var a_t = new Array();
+for (var midId in menu_items[supId])
+{
+if (midId != "smUSBStor")
+{
+a_t[midId] = menu_items[supId][midId];
+}
+}
+menu_items[supId] = a_t;
+}
+}
+<%
+}
+%>
+var selectPage  = "<%=nextpage;%>";
+var selectSupId = "<%=selectSupId;%>";
+function menuUpdate()
+{
+var supId = selectSupId;
+text  ="<table id='TestMenutable" + supId + "' class='menu' border='0' cellpadding='0' cellspacing='0'>"
++"<tbody>"
++"<tr>"
++"<td class='h2_top' style='background:url(img/h2_top.gif) no-repeat left top;'></td>"
++"</tr>"
++"<tr>"
++" <td class='h2_mid' style=' background:url(img/h2_mid.gif) repeat-y left top;' ><a name='top'></a>"
++"<table id='TestSubMenutable" + supId + "' class='h2_table' border='0' cellpadding='0' cellspacing='0'>"
++"<tbody>";
+for ( var midId in menu_items[supId] )
+{
+var stat = getMidMenuStat(supId, midId);
+if ( stat == "single" )
+{
+if (menu_items[supId][midId]['page'] == selectPage)
+{
+text = text
++    "<tr class='h2_s' >"
++    "<td class='left'></td> "
++    "<td class='mid' colspan='2'>"
++    "&nbsp;&nbsp;"
++    "<font id='"+midId+"'>"
++    menu_items[supId][midId]['langName']
++    "</font></td>"
++    "<td class='right'></td>"
++    "</tr>";
+}
+else
+{
+text = text
++    "<tr class='h2_content' style='cursor:pointer'  onclick='javascript:openLink(\"" + menu_items[supId][midId]['URL'] + "\")'>"
++    "<td class='left'></td> "
++    "<td class='mid'>"
++    "&nbsp;&nbsp;"
++    "<font id='"+midId+"'>"
++    menu_items[supId][midId]['langName']
++    "</font></td>"
++    "<td class='right'></td>"
++    "</tr>";
+}
+}
+else if ( stat == "closed" )
+{
+text = text
++    "<tr class='h2_content' style='cursor:pointer' onclick='javascript:OnMenuItemClick(" + supId + "," + midId + "); openLink(\"" + menu_items[supId][midId]['URL'] + "\")'>"
++    "<td class='left'></td> "
++    "<td class='mid'>"
++    "<span style='color:green; font-size:12.0pt; font-family:Arial'>+</span> "
++    "<font id='"+midId+"'>"
++    menu_items[supId][midId]['langName']
++    "</font></td>"
++    "<td class='right'></td>"
++    "</tr>";
+}
+else if ( stat == "open" )
+{
+text = text
++    "<tr class='h2_s' >"
++    "<td class='left'></td> "
++    "<td class='mid'>"
++    "&nbsp;<span style='font-size:12.0pt; font-family:Arial'>-</span>"
++    "<font id='"+midId+"'>"
++    menu_items[supId][midId]['langName']
++    "</font></td>"
++    "<td class='right'></td>"
++    "</tr>";
+for ( var subId in menu_subitems[supId][midId] )
+{
+if (menu_subitems[supId][midId][subId]['page'] == selectPage)
+{
+text = text
++    "<tr class='h3_s'>"
++    "<td class='left'></td>"
++    "<td class='mid' style='background-color:#b4e693;' colspan='2'>"
++    "<font size='4'>&#149;</font>"
++    "<font id='"+subId+"'>"
++     menu_subitems[supId][midId][subId]['langName']
++    "</font></td>"
++    "<td class='right'></td>"
++    "</tr>";
+}
+else
+{
+text = text
++    "<tr class='h3' style='cursor:pointer' onclick=\"javascript:openLink('" + menu_subitems[supId][midId][subId]['URL'] + "')\">"
++    "<td class='left'></td>"
++    "<td class='mid' colspan='2'>"
++    "<font id='"+subId+"'>"
++     menu_subitems[supId][midId][subId]['langName']
++    "</font></td>"
++    "<td class='right'></td>"
++    "</tr>";
+}
+}
+}
+}
+text = text
++     "<tr class='h2_space'>"
++     "<td colspan='3'></td>"
++     "</tr>"
++     "<tr class='h2_help'>"
++     "<td class='left'></td>"
++     "<td class='mid_right'>"
+<%
+if (get_config("help") == "Y")
+{
+%>
++     "<div><ul><li class='help'>"
++     "<span  style=\"cursor:pointer\"  onclick=\"showHelp();\"><img id=\"sss\" src=\"img/help.gif\" border='0'><b style=\"color:rgb(62,62,62)\">&?menu006;</b></span>"
++     "</li>"
++     "</ul>"
++     "</div>"
+<%
+}
+%>
++     "</td>"
++     "<td class='right'></td>"
++     "</tr>"
++     "</tbody>"
++     "</table>"
++     "</td>"
++     "</tr>"
++     "<tr>"
++     "<td class='h2_bottom' style='background:url(img/h2_bottom.gif) no-repeat left top;'></td>"
++     "</tr>"
++     "</tbody>"
++     "</table>";
+getObj("menu0").innerHTML=text;
+}
+function myOnLoad()
+{
+menuDisp();
+framedispalay('myiframe');
+}
+function setWindowScrollTop(win, e, nowHelpTag, lastHelpTag)
+{
+topHeight = getTop(e);
+if(win.document.documentElement)
+{
+win.document.documentElement.scrollTop = topHeight;
+}
+if(win.document.body){
+win.document.body.scrollTop = topHeight;
+}
+changeHelpColor(nowHelpTag, lastHelpTag);
+}
+function getTop(e)
+{
+var offset=e.offsetTop;
+if(e.offsetParent!=null)
+{
+offset+=getTop(e.offsetParent);
+}
+return offset;
+}
+function changeHelpColor(nowHelpTag, lastHelpTag)
+{
+if(nowHelpTag != lastHelpTag)
+{
+if(nowHelpTag == "gotop")
+{
+cancleColor(lastHelpTag);
+}
+else
+{
+cancleColor(lastHelpTag);
+confirmColor(nowHelpTag);
+}
+}
+else
+{
+confirmColor(nowHelpTag);
+}
+}
+function nextnode(node)
+{
+if(node.nodeType == 1)
+{
+return node;
+}
+if(node.nextSibling)
+{
+return nextnode(node.nextSibling);
+}
+}
+function fathernode(node)
+{
+if(node.nodeType == 1)
+{
+return node;
+}
+if(node.parentnode)
+{
+return fathernode(node.parentnode)
+}
+}
+function confirmColor(nowHelpTag)
+{
+var parentnodea = fathernode(document.getElementsByName(nowHelpTag)[0].parentNode);
+var helpTitle = fathernode(parentnodea.parentNode);
+helpTitle.bgColor="#B4E639";
+var helpText = nextnode(helpTitle.nextSibling);
+helpText.bgColor="#FFFFCC";
+getObj("helpTagValue").value = nowHelpTag;
+}
+function cancleColor(lastHelpTag)
+{
+if(lastHelpTag != "")
+{
+var parentnodea = fathernode(document.getElementsByName(lastHelpTag)[0].parentNode);
+var helpTitle = fathernode(parentnodea.parentNode);
+helpTitle.bgColor="";
+var helpText = nextnode(helpTitle.nextSibling);
+helpText.bgColor="";
+}
+}
+myOnLoad();
+</script>

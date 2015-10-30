@@ -1,0 +1,103 @@
+# /etc/init.norm: system-wide  file for the Bourne shells
+
+
+
+
+#judge the existence of udhcpd.lease
+echo
+firsttime=`echo /var/udhcpd/udhcpd.lease*`
+if [ "$firsttime" = "/var/udhcpd/udhcpd.lease*" ]; then
+ echo "Loading drivers and kernel modules... "
+ echo
+# no-op
+# create directory in /var mounted for TMPFS
+mkdir -p /var/log /var/run /var/state/dhcp /var/ppp /var/udhcpd /var/zebra /var/siproxd /var/cache /var/iproute2 /var/ct/tmp /var/tmp
+mount -t jffs2 /dev/mtdblock2 /cfg/
+/bin/tagparms_init /dev/brcmboard /var/tagparam_m 65536 2 65536
+
+
+#for upnp
+mkdir -p /var/tmp/linux-igd
+cp -f  /etc/gatedesc.skl /var/tmp/linux-igd/gatedesc.skl
+cp -f  /etc/gateinfoSCPD.xml /var/tmp/linux-igd/gateinfoSCPD.xml
+cp -f  /etc/gateicfgSCPD.xml /var/tmp/linux-igd/gateicfgSCPD.xml
+cp -f  /etc/gateconnSCPD.xml /var/tmp/linux-igd/gateconnSCPD.xml
+
+
+#for route
+mkdir -p /var/iproute2
+echo "" > /var/iproute2/rt_tables
+
+ echo > /var/udhcpd/udhcpd.leases
+ ifconfig lo 127.0.0.1 netmask 255.0.0.0 broadcast 127.255.255.255 up
+
+
+ 
+ #user cfg region  
+#usercfg_flashing 
+ 
+ test -e /lib/modules/$KERNELVER/extra/bcm_log.ko && insmod /lib/modules/$KERNELVER/extra/bcm_log.ko
+ test -e /lib/modules/$KERNELVER/extra/bcm_ingqos.ko && insmod /lib/modules/$KERNELVER/extra/bcm_ingqos.ko
+ test -e /lib/modules/$KERNELVER/extra/bcm_bpm.ko && insmod /lib/modules/$KERNELVER/extra/bcm_bpm.ko
+ test -e /lib/modules/$KERNELVER/extra/pktflow.ko && insmod /lib/modules/$KERNELVER/extra/pktflow.ko
+ test -e /lib/modules/$KERNELVER/extra/pktcmf.ko && insmod /lib/modules/$KERNELVER/extra/pktcmf.ko
+ test -e /lib/modules/$KERNELVER/extra/bcmfap.ko && insmod /lib/modules/$KERNELVER/extra/bcmfap.ko
+ test -e /etc/cmf/cmfcfg && /etc/cmf/cmfcfg
+ test -e /lib/modules/$KERNELVER/extra/profdrvdd.ko && insmod /lib/modules/$KERNELVER/extra/profdrvdd.ko
+ test -e /lib/modules/$KERNELVER/extra/bcmxtmcfg.ko && insmod /lib/modules/$KERNELVER/extra/bcmxtmcfg.ko
+ test -e /lib/modules/$KERNELVER/extra/atmapi.ko && insmod /lib/modules/$KERNELVER/extra/atmapi.ko
+ test -e /lib/modules/$KERNELVER/extra/adsldd.ko && insmod /lib/modules/$KERNELVER/extra/adsldd.ko
+ test -e /lib/modules/$KERNELVER/extra/blaa_dd.ko && insmod /lib/modules/$KERNELVER/extra/blaa_dd.ko
+ test -e /lib/modules/$KERNELVER/extra/bcmprocfs.ko && insmod /lib/modules/$KERNELVER/extra/bcmprocfs.ko
+# test -e /lib/modules/$KERNELVER/kernel/net/ipv6/ipv6.ko && insmod /lib/modules/$KERNELVER/kernel/net/ipv6/ipv6.ko
+ test -e /lib/modules/$KERNELVER/kernel/net/atm/br2684.ko && insmod /lib/modules/$KERNELVER/kernel/net/atm/br2684.ko
+ test -e /lib/modules/$KERNELVER/extra/bcm_enet.ko && insmod /lib/modules/$KERNELVER/extra/bcm_enet.ko
+ test -e /lib/modules/component/drivers/switch/rtl8367/switch_rtl8367b.ko && insmod /lib/modules/component/drivers/switch/rtl8367/switch_rtl8367b.ko 
+ test -e /lib/modules/$KERNELVER/extra/bcmsw.ko && insmod /lib/modules/$KERNELVER/extra/bcmsw.ko && ifconfig bcmsw up
+# test -e /lib/modules/$KERNELVER/extra/bcm_usb.ko && insmod /lib/modules/$KERNELVER/extra/bcm_usb.ko
+#WLAN Module
+#test -e /lib/modules/$KERNELVER/extra/wl.ko && insmod /lib/modules/$KERNELVER/extra/wl.ko
+# test -e /etc/wlan/rtecdc.trx  && /bin/bcmdl /etc/wlan/rtecdc.trx && sleep 2 && insmod /lib/modules/$KERNELVER/extra/wl-usb.ko
+ 
+ test -e /lib/modules/$KERNELVER/extra/dspdd.ko && insmod /lib/modules/$KERNELVER/extra/dspdd.ko
+ test -e /lib/modules/$KERNELVER/extra/endpointdd.ko && insmod /lib/modules/$KERNELVER/extra/endpointdd.ko
+# echo "stop watchdog"
+# echo 0 > /proc/zteinfo/watchdog/conf 
+ test -e /lib/modules/$KERNELVER/kernel/drivers/slc/usr_line.ko && insmod /lib/modules/$KERNELVER/kernel/drivers/slc/usr_line.ko
+ test -e /lib/modules/$KERNELVER/kernel/drivers/slc/si3217x/si3217x_h201n.ko && insmod /lib/modules/$KERNELVER/kernel/drivers/slc/si3217x/si3217x_h201n.ko
+# echo "start watchdog"
+# echo 1 > /proc/zteinfo/watchdog/conf 
+ test -e /lib/modules/$KERNELVER/extra/p8021ag.ko && insmod /lib/modules/$KERNELVER/extra/p8021ag.ko
+ 
+#ULC modules
+# test -e /lib/modules/2.6.21.5/kernel/drivers/slc/usr_line.ko && insmod /lib/modules/2.6.21.5/kernel/drivers/slc/usr_line.ko
+# test -e /lib/modules/component/drivers/slc/si3215bcm.ko && insmod /lib/modules/component/drivers/slc/si3215bcm.ko
+# test -e /lib/modules/component/drivers/slc/si3050bcm.ko && insmod /lib/modules/component/drivers/slc/si3050bcm.ko
+
+# other modules
+ test -e /lib/modules/$KERNELVER/extra/isdn.ko && insmod /lib/modules/$KERNELVER/extra/isdn.ko
+ test -e /lib/modules/$KERNELVER/kernel/drivers/isdn/capi/capi.ko && insmod /lib/modules/$KERNELVER/kernel/drivers/isdn/capi/capi.ko 
+ test -e /lib/modules/$KERNELVER/extra/bcmgpon.ko && insmod /lib/modules/$KERNELVER/extra/bcmgpon.ko RESETONLOS=1 omciGemPortMap=1
+ test -e /lib/modules/$KERNELVER/extra/bcmgpon.ko && insmod /etc/gpon/modules/gpio.ko
+ test -e /lib/modules/$KERNELVER/extra/pwrmngtd.ko && insmod /lib/modules/$KERNELVER/extra/pwrmngtd.ko
+fi
+
+#for bridge
+echo 3 > /proc/net/l2b
+
+# jyl 20130116 no need
+#临时修改
+#ifconfig eth0 0.0.0.0
+#ifconfig eth0 promisc
+
+#################################
+# 设置主机名称，不启动telnetd   #
+#################################
+hostname "router"
+#telnetd&
+
+# auto start cpsd
+ pc&
+
+
+

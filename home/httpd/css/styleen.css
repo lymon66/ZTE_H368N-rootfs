@@ -1,0 +1,109 @@
+#mmStatu {
+    width:81px;
+    left: 184px;
+}
+#mmNet {
+    width:81px;
+    left:267px;
+}
+#mmSec {
+    width:84px;
+    left:350px;
+}
+#mmApp {
+    width:84px;
+    left:436px;
+}
+#mmManager {
+    width:100px;
+    left:522px;
+}
+#mmHelp{
+    width:74px;
+    left:624px;
+}
+.h1 {
+color: #005207;
+font-weight: bold;
+font-size: 11px;
+font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+.h1_s {
+color: #FFFFFF;
+font-weight: bold;
+font-size: 11px;
+font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+.h2 {
+width:154px;
+height:100%;
+padding:2px 0 0 1px;
+float:left;
+font-size: 11px;
+font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+
+.button6 {
+    height:20px;
+    vertical-align:middle;
+    text-align:center;
+    font-size: 12px;
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.button5 {
+    width:80px;
+}
+.button6 {
+    width:160px;
+}
+.button7 {
+    width:120px;
+}
+
+.inputId10 {
+    width:120px;
+}
+
+.list_1 {
+    width:130px;	
+}
+.list_2 {
+    width:180px;
+}
+
+.list_4 {
+    width:185px;
+}
+
+.list_8 {
+    width:140px;	
+}
+
+table.infor {
+ width:460px;
+}
+
+table.infor td.tdleft {
+    padding-right:5px;
+    width:50%;
+    height:27px;
+    text-align:right;
+}
+table.table td.td4 {
+    width:10%;
+    height:24px;
+    text-align:right;	
+}
+table.table td.td11 {
+    width:50%;
+    height:24px;
+    text-align: right;	
+}
+
+table.table td.td12 {
+    width:20%;
+    height:24px;
+    text-align: right;	
+}
